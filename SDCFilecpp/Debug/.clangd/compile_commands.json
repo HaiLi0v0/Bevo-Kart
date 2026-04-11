@@ -1,0 +1,57 @@
+[
+   {
+      "directory" : "C:/MSPM0_Valvanoware/SDCFilecpp/Debug",
+      "command"   : "clang++ -I\"C:/MSPM0_Valvanoware/SDCFilecpp\" -I\"C:/MSPM0_Valvanoware/SDCFilecpp/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/MSPM0_Valvanoware/SDCFilecpp/Debug/syscfg\" -xc++",
+      "file"      : "C:/MSPM0_Valvanoware/inc/Clock.cpp"
+   },
+   {
+      "directory" : "C:/MSPM0_Valvanoware/SDCFilecpp/Debug",
+      "command"   : "clang++ -I\"C:/MSPM0_Valvanoware/SDCFilecpp\" -I\"C:/MSPM0_Valvanoware/SDCFilecpp/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/MSPM0_Valvanoware/SDCFilecpp/Debug/syscfg\" -xc++",
+      "file"      : "C:/MSPM0_Valvanoware/inc/DAC.cpp"
+   },
+   {
+      "directory" : "C:/MSPM0_Valvanoware/SDCFilecpp/Debug",
+      "command"   : "clang++ -I\"C:/MSPM0_Valvanoware/SDCFilecpp\" -I\"C:/MSPM0_Valvanoware/SDCFilecpp/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/MSPM0_Valvanoware/SDCFilecpp/Debug/syscfg\" -xc++",
+      "file"      : "C:/MSPM0_Valvanoware/inc/LaunchPad.cpp"
+   },
+   {
+      "directory" : "C:/MSPM0_Valvanoware/SDCFilecpp/Debug",
+      "command"   : "clang++ -I\"C:/MSPM0_Valvanoware/SDCFilecpp\" -I\"C:/MSPM0_Valvanoware/SDCFilecpp/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/MSPM0_Valvanoware/SDCFilecpp/Debug/syscfg\" -xc++",
+      "file"      : "C:/MSPM0_Valvanoware/SDCFilecpp/SDCFile.cpp"
+   },
+   {
+      "directory" : "C:/MSPM0_Valvanoware/SDCFilecpp/Debug",
+      "command"   : "clang++ -I\"C:/MSPM0_Valvanoware/SDCFilecpp\" -I\"C:/MSPM0_Valvanoware/SDCFilecpp/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/MSPM0_Valvanoware/SDCFilecpp/Debug/syscfg\" -xc++",
+      "file"      : "C:/MSPM0_Valvanoware/inc/SPI.cpp"
+   },
+   {
+      "directory" : "C:/MSPM0_Valvanoware/SDCFilecpp/Debug",
+      "command"   : "clang++ -I\"C:/MSPM0_Valvanoware/SDCFilecpp\" -I\"C:/MSPM0_Valvanoware/SDCFilecpp/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/MSPM0_Valvanoware/SDCFilecpp/Debug/syscfg\" -xc++",
+      "file"      : "C:/MSPM0_Valvanoware/SDCFilecpp/ST7735_SDC.cpp"
+   },
+   {
+      "directory" : "C:/MSPM0_Valvanoware/SDCFilecpp/Debug",
+      "command"   : "clang++ -I\"C:/MSPM0_Valvanoware/SDCFilecpp\" -I\"C:/MSPM0_Valvanoware/SDCFilecpp/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/MSPM0_Valvanoware/SDCFilecpp/Debug/syscfg\" -xc++",
+      "file"      : "C:/MSPM0_Valvanoware/inc/TExaS.cpp"
+   },
+   {
+      "directory" : "C:/MSPM0_Valvanoware/SDCFilecpp/Debug",
+      "command"   : "clang++ -I\"C:/MSPM0_Valvanoware/SDCFilecpp\" -I\"C:/MSPM0_Valvanoware/SDCFilecpp/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/MSPM0_Valvanoware/SDCFilecpp/Debug/syscfg\" -xc++",
+      "file"      : "C:/MSPM0_Valvanoware/inc/Timer.cpp"
+   },
+   {
+      "directory" : "C:/MSPM0_Valvanoware/SDCFilecpp/Debug",
+      "command"   : "clang++ -I\"C:/MSPM0_Valvanoware/SDCFilecpp\" -I\"C:/MSPM0_Valvanoware/SDCFilecpp/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/MSPM0_Valvanoware/SDCFilecpp/Debug/syscfg\" -xc++",
+      "file"      : "C:/MSPM0_Valvanoware/SDCFilecpp/diskio.cpp"
+   },
+   {
+      "directory" : "C:/MSPM0_Valvanoware/SDCFilecpp/Debug",
+      "command"   : "clang++ -I\"C:/MSPM0_Valvanoware/SDCFilecpp\" -I\"C:/MSPM0_Valvanoware/SDCFilecpp/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/MSPM0_Valvanoware/SDCFilecpp/Debug/syscfg\" -xc++",
+      "file"      : "C:/MSPM0_Valvanoware/SDCFilecpp/ff.cpp"
+   },
+   {
+      "directory" : "C:/MSPM0_Valvanoware/SDCFilecpp/Debug",
+      "command"   : "clang++ -I\"C:/MSPM0_Valvanoware/SDCFilecpp\" -I\"C:/MSPM0_Valvanoware/SDCFilecpp/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/MSPM0_Valvanoware/SDCFilecpp/Debug/syscfg\" -xc",
+      "file"      : "C:/MSPM0_Valvanoware/SDCFilecpp/ticlang/startup_mspm0g3507_ticlang.c"
+   }
+]
