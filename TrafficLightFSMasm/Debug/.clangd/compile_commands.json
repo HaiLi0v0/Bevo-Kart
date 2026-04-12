@@ -1,22 +1,22 @@
 [
    {
-      "directory" : "C:/MSPM0_Valvanoware/TrafficLightFSMasm/Debug",
-      "command"   : "clang++ -I\"C:/MSPM0_Valvanoware/TrafficLightFSMasm\" -I\"C:/MSPM0_Valvanoware/TrafficLightFSMasm/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/MSPM0_Valvanoware/TrafficLightFSMasm/Debug/syscfg\" -xc",
-      "file"      : "C:/MSPM0_Valvanoware/inc/Clock.c"
+      "directory" : "C:/BevoKart/TrafficLightFSMasm/Debug",
+      "command"   : "clang++ -I\"C:/BevoKart/TrafficLightFSMasm\" -I\"C:/BevoKart/TrafficLightFSMasm/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/BevoKart/TrafficLightFSMasm/Debug/syscfg\" -xc",
+      "file"      : "C:/BevoKart/inc/Clock.c"
    },
    {
-      "directory" : "C:/MSPM0_Valvanoware/TrafficLightFSMasm/Debug",
-      "command"   : "clang++ -I\"C:/MSPM0_Valvanoware/TrafficLightFSMasm\" -I\"C:/MSPM0_Valvanoware/TrafficLightFSMasm/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/MSPM0_Valvanoware/TrafficLightFSMasm/Debug/syscfg\" -xc",
-      "file"      : "C:/MSPM0_Valvanoware/inc/LaunchPad.c"
+      "directory" : "C:/BevoKart/TrafficLightFSMasm/Debug",
+      "command"   : "clang++ -I\"C:/BevoKart/TrafficLightFSMasm\" -I\"C:/BevoKart/TrafficLightFSMasm/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/BevoKart/TrafficLightFSMasm/Debug/syscfg\" -xc",
+      "file"      : "C:/BevoKart/inc/LaunchPad.c"
    },
    {
-      "directory" : "C:/MSPM0_Valvanoware/TrafficLightFSMasm/Debug",
-      "command"   : "clang++ -I\"C:/MSPM0_Valvanoware/TrafficLightFSMasm\" -I\"C:/MSPM0_Valvanoware/TrafficLightFSMasm/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/MSPM0_Valvanoware/TrafficLightFSMasm/Debug/syscfg\"",
-      "file"      : "C:/MSPM0_Valvanoware/TrafficLightFSMasm/TrafficLightFSM.s"
+      "directory" : "C:/BevoKart/TrafficLightFSMasm/Debug",
+      "command"   : "clang++ -I\"C:/BevoKart/TrafficLightFSMasm\" -I\"C:/BevoKart/TrafficLightFSMasm/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/BevoKart/TrafficLightFSMasm/Debug/syscfg\"",
+      "file"      : "C:/BevoKart/TrafficLightFSMasm/TrafficLightFSM.s"
    },
    {
-      "directory" : "C:/MSPM0_Valvanoware/TrafficLightFSMasm/Debug",
-      "command"   : "clang++ -I\"C:/MSPM0_Valvanoware/TrafficLightFSMasm\" -I\"C:/MSPM0_Valvanoware/TrafficLightFSMasm/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/MSPM0_Valvanoware/TrafficLightFSMasm/Debug/syscfg\" -xc",
-      "file"      : "C:/MSPM0_Valvanoware/TrafficLightFSMasm/ticlang/startup_mspm0g3507_ticlang.c"
+      "directory" : "C:/BevoKart/TrafficLightFSMasm/Debug",
+      "command"   : "clang++ -I\"C:/BevoKart/TrafficLightFSMasm\" -I\"C:/BevoKart/TrafficLightFSMasm/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/BevoKart/TrafficLightFSMasm/Debug/syscfg\" -xc",
+      "file"      : "C:/BevoKart/TrafficLightFSMasm/ticlang/startup_mspm0g3507_ticlang.c"
    }
 ]

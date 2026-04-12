@@ -1,57 +1,57 @@
 [
    {
-      "directory" : "C:/MSPM0_Valvanoware/SDCFile/Debug",
-      "command"   : "clang++ -I\"C:/MSPM0_Valvanoware/SDCFile\" -I\"C:/MSPM0_Valvanoware/SDCFile/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/MSPM0_Valvanoware/SDCFile/Debug/syscfg\" -xc",
-      "file"      : "C:/MSPM0_Valvanoware/inc/Clock.c"
+      "directory" : "C:/BevoKart/SDCFile/Debug",
+      "command"   : "clang++ -I\"C:/BevoKart/SDCFile\" -I\"C:/BevoKart/SDCFile/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/BevoKart/SDCFile/Debug/syscfg\" -xc",
+      "file"      : "C:/BevoKart/inc/Clock.c"
    },
    {
-      "directory" : "C:/MSPM0_Valvanoware/SDCFile/Debug",
-      "command"   : "clang++ -I\"C:/MSPM0_Valvanoware/SDCFile\" -I\"C:/MSPM0_Valvanoware/SDCFile/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/MSPM0_Valvanoware/SDCFile/Debug/syscfg\" -xc",
-      "file"      : "C:/MSPM0_Valvanoware/inc/DAC.c"
+      "directory" : "C:/BevoKart/SDCFile/Debug",
+      "command"   : "clang++ -I\"C:/BevoKart/SDCFile\" -I\"C:/BevoKart/SDCFile/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/BevoKart/SDCFile/Debug/syscfg\" -xc",
+      "file"      : "C:/BevoKart/inc/DAC.c"
    },
    {
-      "directory" : "C:/MSPM0_Valvanoware/SDCFile/Debug",
-      "command"   : "clang++ -I\"C:/MSPM0_Valvanoware/SDCFile\" -I\"C:/MSPM0_Valvanoware/SDCFile/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/MSPM0_Valvanoware/SDCFile/Debug/syscfg\" -xc",
-      "file"      : "C:/MSPM0_Valvanoware/inc/LaunchPad.c"
+      "directory" : "C:/BevoKart/SDCFile/Debug",
+      "command"   : "clang++ -I\"C:/BevoKart/SDCFile\" -I\"C:/BevoKart/SDCFile/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/BevoKart/SDCFile/Debug/syscfg\" -xc",
+      "file"      : "C:/BevoKart/inc/LaunchPad.c"
    },
    {
-      "directory" : "C:/MSPM0_Valvanoware/SDCFile/Debug",
-      "command"   : "clang++ -I\"C:/MSPM0_Valvanoware/SDCFile\" -I\"C:/MSPM0_Valvanoware/SDCFile/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/MSPM0_Valvanoware/SDCFile/Debug/syscfg\" -xc",
-      "file"      : "C:/MSPM0_Valvanoware/SDCFile/SDCFile.c"
+      "directory" : "C:/BevoKart/SDCFile/Debug",
+      "command"   : "clang++ -I\"C:/BevoKart/SDCFile\" -I\"C:/BevoKart/SDCFile/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/BevoKart/SDCFile/Debug/syscfg\" -xc",
+      "file"      : "C:/BevoKart/SDCFile/SDCFile.c"
    },
    {
-      "directory" : "C:/MSPM0_Valvanoware/SDCFile/Debug",
-      "command"   : "clang++ -I\"C:/MSPM0_Valvanoware/SDCFile\" -I\"C:/MSPM0_Valvanoware/SDCFile/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/MSPM0_Valvanoware/SDCFile/Debug/syscfg\" -xc",
-      "file"      : "C:/MSPM0_Valvanoware/inc/SPI.c"
+      "directory" : "C:/BevoKart/SDCFile/Debug",
+      "command"   : "clang++ -I\"C:/BevoKart/SDCFile\" -I\"C:/BevoKart/SDCFile/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/BevoKart/SDCFile/Debug/syscfg\" -xc",
+      "file"      : "C:/BevoKart/inc/SPI.c"
    },
    {
-      "directory" : "C:/MSPM0_Valvanoware/SDCFile/Debug",
-      "command"   : "clang++ -I\"C:/MSPM0_Valvanoware/SDCFile\" -I\"C:/MSPM0_Valvanoware/SDCFile/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/MSPM0_Valvanoware/SDCFile/Debug/syscfg\" -xc",
-      "file"      : "C:/MSPM0_Valvanoware/SDCFile/ST7735_SDC.c"
+      "directory" : "C:/BevoKart/SDCFile/Debug",
+      "command"   : "clang++ -I\"C:/BevoKart/SDCFile\" -I\"C:/BevoKart/SDCFile/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/BevoKart/SDCFile/Debug/syscfg\" -xc",
+      "file"      : "C:/BevoKart/SDCFile/ST7735_SDC.c"
    },
    {
-      "directory" : "C:/MSPM0_Valvanoware/SDCFile/Debug",
-      "command"   : "clang++ -I\"C:/MSPM0_Valvanoware/SDCFile\" -I\"C:/MSPM0_Valvanoware/SDCFile/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/MSPM0_Valvanoware/SDCFile/Debug/syscfg\" -xc",
-      "file"      : "C:/MSPM0_Valvanoware/inc/TExaS.c"
+      "directory" : "C:/BevoKart/SDCFile/Debug",
+      "command"   : "clang++ -I\"C:/BevoKart/SDCFile\" -I\"C:/BevoKart/SDCFile/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/BevoKart/SDCFile/Debug/syscfg\" -xc",
+      "file"      : "C:/BevoKart/inc/TExaS.c"
    },
    {
-      "directory" : "C:/MSPM0_Valvanoware/SDCFile/Debug",
-      "command"   : "clang++ -I\"C:/MSPM0_Valvanoware/SDCFile\" -I\"C:/MSPM0_Valvanoware/SDCFile/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/MSPM0_Valvanoware/SDCFile/Debug/syscfg\" -xc",
-      "file"      : "C:/MSPM0_Valvanoware/inc/Timer.c"
+      "directory" : "C:/BevoKart/SDCFile/Debug",
+      "command"   : "clang++ -I\"C:/BevoKart/SDCFile\" -I\"C:/BevoKart/SDCFile/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/BevoKart/SDCFile/Debug/syscfg\" -xc",
+      "file"      : "C:/BevoKart/inc/Timer.c"
    },
    {
-      "directory" : "C:/MSPM0_Valvanoware/SDCFile/Debug",
-      "command"   : "clang++ -I\"C:/MSPM0_Valvanoware/SDCFile\" -I\"C:/MSPM0_Valvanoware/SDCFile/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/MSPM0_Valvanoware/SDCFile/Debug/syscfg\" -xc",
-      "file"      : "C:/MSPM0_Valvanoware/SDCFile/diskio.c"
+      "directory" : "C:/BevoKart/SDCFile/Debug",
+      "command"   : "clang++ -I\"C:/BevoKart/SDCFile\" -I\"C:/BevoKart/SDCFile/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/BevoKart/SDCFile/Debug/syscfg\" -xc",
+      "file"      : "C:/BevoKart/SDCFile/diskio.c"
    },
    {
-      "directory" : "C:/MSPM0_Valvanoware/SDCFile/Debug",
-      "command"   : "clang++ -I\"C:/MSPM0_Valvanoware/SDCFile\" -I\"C:/MSPM0_Valvanoware/SDCFile/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/MSPM0_Valvanoware/SDCFile/Debug/syscfg\" -xc",
-      "file"      : "C:/MSPM0_Valvanoware/SDCFile/ff.c"
+      "directory" : "C:/BevoKart/SDCFile/Debug",
+      "command"   : "clang++ -I\"C:/BevoKart/SDCFile\" -I\"C:/BevoKart/SDCFile/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/BevoKart/SDCFile/Debug/syscfg\" -xc",
+      "file"      : "C:/BevoKart/SDCFile/ff.c"
    },
    {
-      "directory" : "C:/MSPM0_Valvanoware/SDCFile/Debug",
-      "command"   : "clang++ -I\"C:/MSPM0_Valvanoware/SDCFile\" -I\"C:/MSPM0_Valvanoware/SDCFile/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/MSPM0_Valvanoware/SDCFile/Debug/syscfg\" -xc",
-      "file"      : "C:/MSPM0_Valvanoware/SDCFile/ticlang/startup_mspm0g3507_ticlang.c"
+      "directory" : "C:/BevoKart/SDCFile/Debug",
+      "command"   : "clang++ -I\"C:/BevoKart/SDCFile\" -I\"C:/BevoKart/SDCFile/Debug\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source/third_party/CMSIS/Core/Include\" -I\"C:/ti/mspm0_sdk_2_09_00_01/source\" -D__MSPM0G3507__ -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/armv7em-ti-none-eabihf/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c++/v1\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/lib/clang/18/include\" -isystem\"C:/ti/ccs2040/ccs/tools/compiler/ti-cgt-armllvm_4.0.4.LTS/include/c\" -I\"C:/BevoKart/SDCFile/Debug/syscfg\" -xc",
+      "file"      : "C:/BevoKart/SDCFile/ticlang/startup_mspm0g3507_ticlang.c"
    }
 ]

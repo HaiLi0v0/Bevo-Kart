@@ -12,7 +12,7 @@ S_SRCS += \
 ../Toggle.s 
 
 C_SRCS += \
-C:/MSPM0_Valvanoware/inc/LaunchPad.c 
+C:/BevoKart/inc/LaunchPad.c 
 
 S_DEPS += \
 ./Toggle.d 
@@ -35,6 +35,6 @@ S_DEPS__QUOTED += \
 "Toggle.d" 
 
 C_SRCS__QUOTED += \
-"C:/MSPM0_Valvanoware/inc/LaunchPad.c" 
+"C:/BevoKart/inc/LaunchPad.c" 
 
 

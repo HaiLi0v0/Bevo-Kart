@@ -6,14 +6,14 @@ SHELL = cmd.exe
 
 # Add inputs and outputs from these tool invocations to the build variables 
 CPP_SRCS += \
-C:/MSPM0_Valvanoware/inc/Clock.cpp \
-C:/MSPM0_Valvanoware/inc/DAC.cpp \
-C:/MSPM0_Valvanoware/inc/LaunchPad.cpp \
+C:/BevoKart/inc/Clock.cpp \
+C:/BevoKart/inc/DAC.cpp \
+C:/BevoKart/inc/LaunchPad.cpp \
 ../SDCFile.cpp \
-C:/MSPM0_Valvanoware/inc/SPI.cpp \
+C:/BevoKart/inc/SPI.cpp \
 ../ST7735_SDC.cpp \
-C:/MSPM0_Valvanoware/inc/TExaS.cpp \
-C:/MSPM0_Valvanoware/inc/Timer.cpp \
+C:/BevoKart/inc/TExaS.cpp \
+C:/BevoKart/inc/Timer.cpp \
 ../diskio.cpp \
 ../ff.cpp 
 
@@ -69,14 +69,14 @@ CPP_DEPS__QUOTED += \
 "ff.d" 
 
 CPP_SRCS__QUOTED += \
-"C:/MSPM0_Valvanoware/inc/Clock.cpp" \
-"C:/MSPM0_Valvanoware/inc/DAC.cpp" \
-"C:/MSPM0_Valvanoware/inc/LaunchPad.cpp" \
+"C:/BevoKart/inc/Clock.cpp" \
+"C:/BevoKart/inc/DAC.cpp" \
+"C:/BevoKart/inc/LaunchPad.cpp" \
 "../SDCFile.cpp" \
-"C:/MSPM0_Valvanoware/inc/SPI.cpp" \
+"C:/BevoKart/inc/SPI.cpp" \
 "../ST7735_SDC.cpp" \
-"C:/MSPM0_Valvanoware/inc/TExaS.cpp" \
-"C:/MSPM0_Valvanoware/inc/Timer.cpp" \
+"C:/BevoKart/inc/TExaS.cpp" \
+"C:/BevoKart/inc/Timer.cpp" \
 "../diskio.cpp" \
 "../ff.cpp" 
 

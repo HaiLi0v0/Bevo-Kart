@@ -9,14 +9,14 @@ CMD_SRCS += \
 ../mspm0g3507.cmd 
 
 C_SRCS += \
-C:/MSPM0_Valvanoware/inc/Clock.c \
-C:/MSPM0_Valvanoware/inc/DAC.c \
-C:/MSPM0_Valvanoware/inc/LaunchPad.c \
+C:/BevoKart/inc/Clock.c \
+C:/BevoKart/inc/DAC.c \
+C:/BevoKart/inc/LaunchPad.c \
 ../SDCFile.c \
-C:/MSPM0_Valvanoware/inc/SPI.c \
+C:/BevoKart/inc/SPI.c \
 ../ST7735_SDC.c \
-C:/MSPM0_Valvanoware/inc/TExaS.c \
-C:/MSPM0_Valvanoware/inc/Timer.c \
+C:/BevoKart/inc/TExaS.c \
+C:/BevoKart/inc/Timer.c \
 ../diskio.c \
 ../ff.c 
 
@@ -69,14 +69,14 @@ C_DEPS__QUOTED += \
 "ff.d" 
 
 C_SRCS__QUOTED += \
-"C:/MSPM0_Valvanoware/inc/Clock.c" \
-"C:/MSPM0_Valvanoware/inc/DAC.c" \
-"C:/MSPM0_Valvanoware/inc/LaunchPad.c" \
+"C:/BevoKart/inc/Clock.c" \
+"C:/BevoKart/inc/DAC.c" \
+"C:/BevoKart/inc/LaunchPad.c" \
 "../SDCFile.c" \
-"C:/MSPM0_Valvanoware/inc/SPI.c" \
+"C:/BevoKart/inc/SPI.c" \
 "../ST7735_SDC.c" \
-"C:/MSPM0_Valvanoware/inc/TExaS.c" \
-"C:/MSPM0_Valvanoware/inc/Timer.c" \
+"C:/BevoKart/inc/TExaS.c" \
+"C:/BevoKart/inc/Timer.c" \
 "../diskio.c" \
 "../ff.c" 
 

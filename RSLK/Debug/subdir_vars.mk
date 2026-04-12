@@ -9,17 +9,17 @@ CMD_SRCS += \
 ../mspm0g3507.cmd 
 
 C_SRCS += \
-C:/MSPM0_Valvanoware/inc/ADC.c \
-C:/MSPM0_Valvanoware/inc/Bump.c \
-C:/MSPM0_Valvanoware/inc/Clock.c \
-C:/MSPM0_Valvanoware/inc/I2C.c \
-C:/MSPM0_Valvanoware/inc/InputCapture.c \
-C:/MSPM0_Valvanoware/inc/LaunchPad.c \
-C:/MSPM0_Valvanoware/inc/Motor.c \
-C:/MSPM0_Valvanoware/inc/PWM1.c \
+C:/BevoKart/inc/ADC.c \
+C:/BevoKart/inc/Bump.c \
+C:/BevoKart/inc/Clock.c \
+C:/BevoKart/inc/I2C.c \
+C:/BevoKart/inc/InputCapture.c \
+C:/BevoKart/inc/LaunchPad.c \
+C:/BevoKart/inc/Motor.c \
+C:/BevoKart/inc/PWM1.c \
 ../RSLKmain.c \
-C:/MSPM0_Valvanoware/inc/SSD1306.c \
-C:/MSPM0_Valvanoware/inc/Timer.c 
+C:/BevoKart/inc/SSD1306.c \
+C:/BevoKart/inc/Timer.c 
 
 C_DEPS += \
 ./ADC.d \
@@ -74,16 +74,16 @@ C_DEPS__QUOTED += \
 "Timer.d" 
 
 C_SRCS__QUOTED += \
-"C:/MSPM0_Valvanoware/inc/ADC.c" \
-"C:/MSPM0_Valvanoware/inc/Bump.c" \
-"C:/MSPM0_Valvanoware/inc/Clock.c" \
-"C:/MSPM0_Valvanoware/inc/I2C.c" \
-"C:/MSPM0_Valvanoware/inc/InputCapture.c" \
-"C:/MSPM0_Valvanoware/inc/LaunchPad.c" \
-"C:/MSPM0_Valvanoware/inc/Motor.c" \
-"C:/MSPM0_Valvanoware/inc/PWM1.c" \
+"C:/BevoKart/inc/ADC.c" \
+"C:/BevoKart/inc/Bump.c" \
+"C:/BevoKart/inc/Clock.c" \
+"C:/BevoKart/inc/I2C.c" \
+"C:/BevoKart/inc/InputCapture.c" \
+"C:/BevoKart/inc/LaunchPad.c" \
+"C:/BevoKart/inc/Motor.c" \
+"C:/BevoKart/inc/PWM1.c" \
 "../RSLKmain.c" \
-"C:/MSPM0_Valvanoware/inc/SSD1306.c" \
-"C:/MSPM0_Valvanoware/inc/Timer.c" 
+"C:/BevoKart/inc/SSD1306.c" \
+"C:/BevoKart/inc/Timer.c" 
 
 

@@ -12,10 +12,10 @@ CMD_SRCS += \
 ../mspm0g3507.cmd 
 
 C_SRCS += \
-C:/MSPM0_Valvanoware/inc/Clock.c \
-C:/MSPM0_Valvanoware/inc/I2C.c \
-C:/MSPM0_Valvanoware/inc/LaunchPad.c \
-C:/MSPM0_Valvanoware/inc/SSD1306.c \
+C:/BevoKart/inc/Clock.c \
+C:/BevoKart/inc/I2C.c \
+C:/BevoKart/inc/LaunchPad.c \
+C:/BevoKart/inc/SSD1306.c \
 ../SSD1306testmain.c 
 
 C_DEPS += \
@@ -50,10 +50,10 @@ EXE_SRCS__QUOTED += \
 "../BmpConvert.exe" 
 
 C_SRCS__QUOTED += \
-"C:/MSPM0_Valvanoware/inc/Clock.c" \
-"C:/MSPM0_Valvanoware/inc/I2C.c" \
-"C:/MSPM0_Valvanoware/inc/LaunchPad.c" \
-"C:/MSPM0_Valvanoware/inc/SSD1306.c" \
+"C:/BevoKart/inc/Clock.c" \
+"C:/BevoKart/inc/I2C.c" \
+"C:/BevoKart/inc/LaunchPad.c" \
+"C:/BevoKart/inc/SSD1306.c" \
 "../SSD1306testmain.c" 
 
 

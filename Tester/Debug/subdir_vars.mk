@@ -9,11 +9,11 @@ CMD_SRCS += \
 ../mspm0g3507.cmd 
 
 C_SRCS += \
-C:/MSPM0_Valvanoware/inc/Clock.c \
-C:/MSPM0_Valvanoware/inc/LaunchPad.c \
+C:/BevoKart/inc/Clock.c \
+C:/BevoKart/inc/LaunchPad.c \
 ../Testermain.c \
-C:/MSPM0_Valvanoware/inc/UART.c \
-C:/MSPM0_Valvanoware/inc/UARTbusywait.c 
+C:/BevoKart/inc/UART.c \
+C:/BevoKart/inc/UARTbusywait.c 
 
 C_DEPS += \
 ./Clock.d \
@@ -44,10 +44,10 @@ C_DEPS__QUOTED += \
 "UARTbusywait.d" 
 
 C_SRCS__QUOTED += \
-"C:/MSPM0_Valvanoware/inc/Clock.c" \
-"C:/MSPM0_Valvanoware/inc/LaunchPad.c" \
+"C:/BevoKart/inc/Clock.c" \
+"C:/BevoKart/inc/LaunchPad.c" \
 "../Testermain.c" \
-"C:/MSPM0_Valvanoware/inc/UART.c" \
-"C:/MSPM0_Valvanoware/inc/UARTbusywait.c" 
+"C:/BevoKart/inc/UART.c" \
+"C:/BevoKart/inc/UARTbusywait.c" 
 
 

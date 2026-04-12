@@ -9,12 +9,12 @@ CMD_SRCS += \
 ../mspm0g3507.cmd 
 
 C_SRCS += \
-C:/MSPM0_Valvanoware/inc/ADC.c \
-C:/MSPM0_Valvanoware/inc/Clock.c \
-C:/MSPM0_Valvanoware/inc/LCD.c \
+C:/BevoKart/inc/ADC.c \
+C:/BevoKart/inc/Clock.c \
+C:/BevoKart/inc/LCD.c \
 ../LCDtestmain.c \
-C:/MSPM0_Valvanoware/inc/LaunchPad.c \
-C:/MSPM0_Valvanoware/inc/SPI.c 
+C:/BevoKart/inc/LaunchPad.c \
+C:/BevoKart/inc/SPI.c 
 
 C_DEPS += \
 ./ADC.d \
@@ -49,11 +49,11 @@ C_DEPS__QUOTED += \
 "SPI.d" 
 
 C_SRCS__QUOTED += \
-"C:/MSPM0_Valvanoware/inc/ADC.c" \
-"C:/MSPM0_Valvanoware/inc/Clock.c" \
-"C:/MSPM0_Valvanoware/inc/LCD.c" \
+"C:/BevoKart/inc/ADC.c" \
+"C:/BevoKart/inc/Clock.c" \
+"C:/BevoKart/inc/LCD.c" \
 "../LCDtestmain.c" \
-"C:/MSPM0_Valvanoware/inc/LaunchPad.c" \
-"C:/MSPM0_Valvanoware/inc/SPI.c" 
+"C:/BevoKart/inc/LaunchPad.c" \
+"C:/BevoKart/inc/SPI.c" 
 
 

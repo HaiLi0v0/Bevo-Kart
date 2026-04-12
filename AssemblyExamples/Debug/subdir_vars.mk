@@ -12,7 +12,7 @@ S_SRCS += \
 ../AssemblyExamples.s 
 
 C_SRCS += \
-C:/MSPM0_Valvanoware/inc/Clock.c 
+C:/BevoKart/inc/Clock.c 
 
 S_DEPS += \
 ./AssemblyExamples.d 
@@ -35,6 +35,6 @@ S_DEPS__QUOTED += \
 "AssemblyExamples.d" 
 
 C_SRCS__QUOTED += \
-"C:/MSPM0_Valvanoware/inc/Clock.c" 
+"C:/BevoKart/inc/Clock.c" 
 
 

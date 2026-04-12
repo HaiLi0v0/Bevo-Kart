@@ -9,11 +9,11 @@ CMD_SRCS += \
 ../mspm0g3507.cmd 
 
 C_SRCS += \
-C:/MSPM0_Valvanoware/inc/ADC.c \
+C:/BevoKart/inc/ADC.c \
 ../ADCSWtriggerTestmain.c \
-C:/MSPM0_Valvanoware/inc/Clock.c \
-C:/MSPM0_Valvanoware/inc/JoyStick.c \
-C:/MSPM0_Valvanoware/inc/LaunchPad.c 
+C:/BevoKart/inc/Clock.c \
+C:/BevoKart/inc/JoyStick.c \
+C:/BevoKart/inc/LaunchPad.c 
 
 C_DEPS += \
 ./ADC.d \
@@ -44,10 +44,10 @@ C_DEPS__QUOTED += \
 "LaunchPad.d" 
 
 C_SRCS__QUOTED += \
-"C:/MSPM0_Valvanoware/inc/ADC.c" \
+"C:/BevoKart/inc/ADC.c" \
 "../ADCSWtriggerTestmain.c" \
-"C:/MSPM0_Valvanoware/inc/Clock.c" \
-"C:/MSPM0_Valvanoware/inc/JoyStick.c" \
-"C:/MSPM0_Valvanoware/inc/LaunchPad.c" 
+"C:/BevoKart/inc/Clock.c" \
+"C:/BevoKart/inc/JoyStick.c" \
+"C:/BevoKart/inc/LaunchPad.c" 
 
 

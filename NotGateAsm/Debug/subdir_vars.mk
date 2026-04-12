@@ -10,11 +10,11 @@ CMD_SRCS += \
 
 S_SRCS += \
 ../NotGate.s \
-C:/MSPM0_Valvanoware/inc/msp.s 
+C:/BevoKart/inc/msp.s 
 
 C_SRCS += \
-C:/MSPM0_Valvanoware/inc/Clock.c \
-C:/MSPM0_Valvanoware/inc/LaunchPad.c 
+C:/BevoKart/inc/Clock.c \
+C:/BevoKart/inc/LaunchPad.c 
 
 S_DEPS += \
 ./NotGate.d \
@@ -45,7 +45,7 @@ S_DEPS__QUOTED += \
 "msp.d" 
 
 C_SRCS__QUOTED += \
-"C:/MSPM0_Valvanoware/inc/Clock.c" \
-"C:/MSPM0_Valvanoware/inc/LaunchPad.c" 
+"C:/BevoKart/inc/Clock.c" \
+"C:/BevoKart/inc/LaunchPad.c" 
 
 

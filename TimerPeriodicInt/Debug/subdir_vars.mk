@@ -9,9 +9,9 @@ CMD_SRCS += \
 ../mspm0g3507.cmd 
 
 C_SRCS += \
-C:/MSPM0_Valvanoware/inc/Clock.c \
-C:/MSPM0_Valvanoware/inc/LaunchPad.c \
-C:/MSPM0_Valvanoware/inc/Timer.c \
+C:/BevoKart/inc/Clock.c \
+C:/BevoKart/inc/LaunchPad.c \
+C:/BevoKart/inc/Timer.c \
 ../TimerPeriodicIntmain.c 
 
 C_DEPS += \
@@ -39,9 +39,9 @@ C_DEPS__QUOTED += \
 "TimerPeriodicIntmain.d" 
 
 C_SRCS__QUOTED += \
-"C:/MSPM0_Valvanoware/inc/Clock.c" \
-"C:/MSPM0_Valvanoware/inc/LaunchPad.c" \
-"C:/MSPM0_Valvanoware/inc/Timer.c" \
+"C:/BevoKart/inc/Clock.c" \
+"C:/BevoKart/inc/LaunchPad.c" \
+"C:/BevoKart/inc/Timer.c" \
 "../TimerPeriodicIntmain.c" 
 
 

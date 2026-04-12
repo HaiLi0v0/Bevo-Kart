@@ -9,11 +9,11 @@ CMD_SRCS += \
 ../mspm0g3507.cmd 
 
 C_SRCS += \
-C:/MSPM0_Valvanoware/inc/Clock.c \
-C:/MSPM0_Valvanoware/inc/FIFO.c \
-C:/MSPM0_Valvanoware/inc/LaunchPad.c \
-C:/MSPM0_Valvanoware/inc/UART.c \
-C:/MSPM0_Valvanoware/inc/UARTints.c \
+C:/BevoKart/inc/Clock.c \
+C:/BevoKart/inc/FIFO.c \
+C:/BevoKart/inc/LaunchPad.c \
+C:/BevoKart/inc/UART.c \
+C:/BevoKart/inc/UARTints.c \
 ../UARTintsTestmain.c 
 
 C_DEPS += \
@@ -49,11 +49,11 @@ C_DEPS__QUOTED += \
 "UARTintsTestmain.d" 
 
 C_SRCS__QUOTED += \
-"C:/MSPM0_Valvanoware/inc/Clock.c" \
-"C:/MSPM0_Valvanoware/inc/FIFO.c" \
-"C:/MSPM0_Valvanoware/inc/LaunchPad.c" \
-"C:/MSPM0_Valvanoware/inc/UART.c" \
-"C:/MSPM0_Valvanoware/inc/UARTints.c" \
+"C:/BevoKart/inc/Clock.c" \
+"C:/BevoKart/inc/FIFO.c" \
+"C:/BevoKart/inc/LaunchPad.c" \
+"C:/BevoKart/inc/UART.c" \
+"C:/BevoKart/inc/UARTints.c" \
 "../UARTintsTestmain.c" 
 
 

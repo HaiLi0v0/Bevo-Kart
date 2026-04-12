@@ -12,8 +12,8 @@ S_SRCS += \
 ../TrafficLightFSM.s 
 
 C_SRCS += \
-C:/MSPM0_Valvanoware/inc/Clock.c \
-C:/MSPM0_Valvanoware/inc/LaunchPad.c 
+C:/BevoKart/inc/Clock.c \
+C:/BevoKart/inc/LaunchPad.c 
 
 S_DEPS += \
 ./TrafficLightFSM.d 
@@ -40,7 +40,7 @@ S_DEPS__QUOTED += \
 "TrafficLightFSM.d" 
 
 C_SRCS__QUOTED += \
-"C:/MSPM0_Valvanoware/inc/Clock.c" \
-"C:/MSPM0_Valvanoware/inc/LaunchPad.c" 
+"C:/BevoKart/inc/Clock.c" \
+"C:/BevoKart/inc/LaunchPad.c" 
 
 
