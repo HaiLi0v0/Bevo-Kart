@@ -247,12 +247,12 @@
             }
         },
         {
-            "name": "ECE319K_Lab9",
+            "name": "BevoKart_code",
             "type": "ccs-debug",
             "request": "launch",
             "projectInfo": {
-                "name": "ECE319K_Lab9",
-                "resourceId": "/ECE319K_Lab9"
+                "name": "BevoKart_code",
+                "resourceId": "/BevoKart_code"
             },
             "debuggerSettings": {
                 "targetConfigs/MSPM0G3507.ccxml": {
