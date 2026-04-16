@@ -95,6 +95,7 @@ void up_graphics(void){
 }
 
 // game engine
+// bounds of the track 20<= x <= 90
 int main(void){ 
   __disable_irq();
   PLL_Init(); // set bus speed
@@ -108,14 +109,16 @@ int main(void){
   ST7735_DrawBitmap(50, 110, bomb, 10, 10);
   
   while(1)
-  {  
+  {
+    ST7735_DrawBitmap(0, 168, track_1, 128, 160);  
     ST7735_DrawBitmap(50, 50, sq_r2, 20, 10); 
     ST7735_DrawBitmap(20, 90, ut_car1, 15,27); 
-    ST7735_DrawBitmap(80, 90, am_car1, 15,27); 
-    Clock_Delay1ms(100);
+    ST7735_DrawBitmap(90, 90, am_car1, 15,27); 
+    Clock_Delay1ms(60);
+    ST7735_DrawBitmap(0, 160, track_2, 128, 160);  
     ST7735_DrawBitmap(50, 50, sq_r1, 20, 10); 
     ST7735_DrawBitmap(20, 90, ut_car2, 15,27); 
-    ST7735_DrawBitmap(80, 90, am_car2, 15,27); 
+    ST7735_DrawBitmap(90, 90, am_car2, 15,27); 
     Clock_Delay1ms(100);
   }
   
