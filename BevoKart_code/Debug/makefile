@@ -24,7 +24,6 @@ ORDERED_OBJS += \
 "./TExaS.o" \
 "./Timer.o" \
 "./game_main.o" \
-"./sprites.o" \
 "./images/pipedreams/PipeSound.o" \
 "./ticlang/startup_mspm0g3507_ticlang.o" \
 "../mspm0g3507.cmd" \
@@ -40,11 +39,13 @@ RMDIR := RMDIR /S/Q
 # All of the sources participating in the build are defined here
 -include sources.mk
 -include subdir_vars.mk
--include images/subdir_vars.mk
+-include images/BKsprites/subdir_vars.mk
+-include images/bevokart_imgs/subdir_vars.mk
 -include images/pipedreams/subdir_vars.mk
 -include ticlang/subdir_vars.mk
 -include subdir_rules.mk
--include images/subdir_rules.mk
+-include images/BKsprites/subdir_rules.mk
+-include images/bevokart_imgs/subdir_rules.mk
 -include images/pipedreams/subdir_rules.mk
 -include ticlang/subdir_rules.mk
 -include objects.mk
@@ -158,8 +159,8 @@ BevoKart_code.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)
-	-$(RM) "ADC1.o" "Arabic.o" "Clock.o" "DAC5.o" "LED.o" "LaunchPad.o" "SPI.o" "ST7735.o" "SmallFont.o" "Sound.o" "Switch.o" "TExaS.o" "Timer.o" "game_main.o" "sprites.o" "images\pipedreams\PipeSound.o" "ticlang\startup_mspm0g3507_ticlang.o" 
-	-$(RM) "ADC1.d" "Arabic.d" "Clock.d" "DAC5.d" "LED.d" "LaunchPad.d" "SPI.d" "ST7735.d" "SmallFont.d" "Sound.d" "Switch.d" "TExaS.d" "Timer.d" "game_main.d" "sprites.d" "images\pipedreams\PipeSound.d" "ticlang\startup_mspm0g3507_ticlang.d" 
+	-$(RM) "ADC1.o" "Arabic.o" "Clock.o" "DAC5.o" "LED.o" "LaunchPad.o" "SPI.o" "ST7735.o" "SmallFont.o" "Sound.o" "Switch.o" "TExaS.o" "Timer.o" "game_main.o" "images\pipedreams\PipeSound.o" "ticlang\startup_mspm0g3507_ticlang.o" 
+	-$(RM) "ADC1.d" "Arabic.d" "Clock.d" "DAC5.d" "LED.d" "LaunchPad.d" "SPI.d" "ST7735.d" "SmallFont.d" "Sound.d" "Switch.d" "TExaS.d" "Timer.d" "game_main.d" "images\pipedreams\PipeSound.d" "ticlang\startup_mspm0g3507_ticlang.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

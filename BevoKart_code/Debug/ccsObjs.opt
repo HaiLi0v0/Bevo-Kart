@@ -12,7 +12,6 @@
 "./TExaS.o"
 "./Timer.o"
 "./game_main.o"
-"./sprites.o"
 "./images/pipedreams/PipeSound.o"
 "./ticlang/startup_mspm0g3507_ticlang.o"
 "../mspm0g3507.cmd"

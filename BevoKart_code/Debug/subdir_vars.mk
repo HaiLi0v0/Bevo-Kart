@@ -22,8 +22,7 @@ C:/BevoKart/inc/ST7735.c \
 ../Switch.c \
 C:/BevoKart/inc/TExaS.c \
 C:/BevoKart/inc/Timer.c \
-../game_main.c \
-../sprites.c 
+../game_main.c 
 
 C_DEPS += \
 ./ADC1.d \
@@ -39,8 +38,7 @@ C_DEPS += \
 ./Switch.d \
 ./TExaS.d \
 ./Timer.d \
-./game_main.d \
-./sprites.d 
+./game_main.d 
 
 OBJS += \
 ./ADC1.o \
@@ -56,8 +54,7 @@ OBJS += \
 ./Switch.o \
 ./TExaS.o \
 ./Timer.o \
-./game_main.o \
-./sprites.o 
+./game_main.o 
 
 OBJS__QUOTED += \
 "ADC1.o" \
@@ -73,8 +70,7 @@ OBJS__QUOTED += \
 "Switch.o" \
 "TExaS.o" \
 "Timer.o" \
-"game_main.o" \
-"sprites.o" 
+"game_main.o" 
 
 C_DEPS__QUOTED += \
 "ADC1.d" \
@@ -90,8 +86,7 @@ C_DEPS__QUOTED += \
 "Switch.d" \
 "TExaS.d" \
 "Timer.d" \
-"game_main.d" \
-"sprites.d" 
+"game_main.d" 
 
 C_SRCS__QUOTED += \
 "C:/BevoKart/inc/ADC1.c" \
@@ -107,7 +102,6 @@ C_SRCS__QUOTED += \
 "../Switch.c" \
 "C:/BevoKart/inc/TExaS.c" \
 "C:/BevoKart/inc/Timer.c" \
-"../game_main.c" \
-"../sprites.c" 
+"../game_main.c" 
 
 

@@ -19,7 +19,7 @@
 #include "LED.h"
 #include "Switch.h"
 #include "Sound.h"
-#include "images/images.h"
+#include "images/BKsprites/images.h"
 //#include "images.h"
 
 typedef enum{
@@ -38,7 +38,7 @@ struct sprite {
   int32_t vx,vy;  // pixels/30Hz
   const unsigned short *image; // ptr->image
   //const unsigned short *black;
-  status_t life;        // dead/alive
+  //status_t life;        // dead/alive
   int32_t w; // width
   int32_t h; // height
   uint32_t needDraw; // true if need to draw
@@ -63,7 +63,6 @@ uint32_t Random(uint32_t n){
   return (Random32()>>16)%n;
 }
 
-
 // games  engine runs at 30Hz
 void TIMG12_IRQHandler(void){uint32_t pos,msg;
   if((TIMG12->CPU_INT.IIDX) == 1){ // this will acknowledge
@@ -83,25 +82,41 @@ uint8_t TExaS_LaunchPadLogicPB27PB26(void){
   return (0x80|((GPIOB->DOUT31_0>>26)&0x03));
 }
 
-// use main2 to observe graphics
-int main2(void){ // main2
-  __disable_irq();
-  PLL_Init(); // set bus speed
-  LaunchPad_Init();
-  ST7735_InitPrintf(INITR_REDTAB); // INITR_REDTAB for AdaFruit, INITR_BLACKTAB for HiLetGo
-    //note: if you colors are weird, see different options for
-    // ST7735_InitR(INITR_REDTAB); inside ST7735_InitPrintf()
-  ST7735_FillScreen(ST7735_BLACK);
-  
-}
 
 // initialize the graphics on the screen
 void graphics_init(void){
-  ST7735_DrawBitmap(50, 100, ut_car1, 18,8); 
+  
 }
 
 //used to update graphics of the game
 void up_graphics(void){
   //check for which button is pressed and move according to the button
+  
+}
+
+// game engine
+int main(void){ 
+  __disable_irq();
+  PLL_Init(); // set bus speed
+  LaunchPad_Init();
+  
+  ST7735_InitPrintf(INITR_REDTAB); // INITR_REDTAB for AdaFruit, INITR_BLACKTAB for HiLetGo
+    //note: if you colors are weird, see different options for
+    // ST7735_InitR(INITR_REDTAB); inside ST7735_InitPrintf()
+  ST7735_FillScreen(ST7735_BLACK);
+  graphics_init();
+  ST7735_DrawBitmap(50, 110, bomb, 10, 10);
+  
+  while(1)
+  {  
+    ST7735_DrawBitmap(50, 50, sq_r2, 20, 10); 
+    ST7735_DrawBitmap(20, 90, ut_car1, 15,27); 
+    ST7735_DrawBitmap(80, 90, am_car1, 15,27); 
+    Clock_Delay1ms(100);
+    ST7735_DrawBitmap(50, 50, sq_r1, 20, 10); 
+    ST7735_DrawBitmap(20, 90, ut_car2, 15,27); 
+    ST7735_DrawBitmap(80, 90, am_car2, 15,27); 
+    Clock_Delay1ms(100);
+  }
   
 }
