@@ -195,7 +195,6 @@ void TIMG12_IRQHandler(void){
 }
 
 
-
 int main(void){ 
   __disable_irq();
   PLL_Init();
@@ -226,13 +225,13 @@ void GROUP1_IRQHandler(void){
   
   uint32_t status = GPIOB->CPU_INT.RIS;
   
-  //if(status & (1<<1)){
+  if(status & (1<<1)){
     PB1Pressed = 1;
-  //}
+  }
   if(status & (1<<4)){
     PB4Pressed = 1;
   }
-  GPIOB->DOUTTGL31_0 = RED; // toggle PB26
+  GPIOB->DOUTTGL31_0 = GREEN; // toggle PB26
   GPIOB->CPU_INT.ICLR = 0x00000012; // clear bit 21
 }
 
