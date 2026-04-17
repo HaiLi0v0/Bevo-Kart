@@ -2,6 +2,7 @@
 "./Arabic.o"
 "./Clock.o"
 "./DAC5.o"
+"./EdgeTriggered.o"
 "./LED.o"
 "./LaunchPad.o"
 "./SPI.o"

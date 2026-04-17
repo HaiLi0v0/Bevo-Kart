@@ -1,59 +1,46 @@
-/* EdgeTriggered.c
- * Jonathan Valvano
- * July 19, 2025
- * Derived
- * Derived from gpio_toggle_output_LP_MSPM0G3507_nortos_ticlang
- *              gpio_input_capture_LP_MSPM0G3507_nortos_ticlang
- * Will invoke LaunchPad_Init
- */
-
-/*
- * Copyright (c) 2021, Texas Instruments Incorporated
- * All rights reserved.
- *
- * Redistribution and use in source and binary forms, with or without
- * modification, are permitted provided that the following conditions
- * are met:
- *
- * *  Redistributions of source code must retain the above copyright
- *    notice, this list of conditions and the following disclaimer.
- *
- * *  Redistributions in binary form must reproduce the above copyright
- *    notice, this list of conditions and the following disclaimer in the
- *    documentation and/or other materials provided with the distribution.
- *
- * *  Neither the name of Texas Instruments Incorporated nor the names of
- *    its contributors may be used to endorse or promote products derived
- *    from this software without specific prior written permission.
- *
- * THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
- * AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO,
- * THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
- * PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR
- * CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL,
- * EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO,
- * PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS;
- * OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY,
- * WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR
- * OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE,
- * EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
- */
-
 #include <ti/devices/msp/msp.h>
 #include "../inc/EdgeTriggered.h"
 #include "../inc/LaunchPad.h"
 
-// PB21 is S3 negative logic switch,  index 48 in IOMUX PINCM table
-
-// Arm interrupts on fall of PB21
-// interrupts will be enabled in main after all initialization
 void EdgeTriggered_Init(void){
-  LaunchPad_Init(); // PB21 is input with internal pull up resistor
-  GPIOB->POLARITY31_16 = 0x00000800;     // falling
-  GPIOB->CPU_INT.ICLR = 0x00200000;   // clear bit 21
-  GPIOB->CPU_INT.IMASK = 0x00200000;  // arm PB21
-  NVIC->IP[0] = (NVIC->IP[0]&(~0x0000FF00))|2<<14;    // set priority (bits 15,14) IRQ 1
-  NVIC->ISER[0] = 1 << 1; // Group1 interrupt
+  LaunchPad_Init();
+
+  // Initialize PB1 as GPIO input with pull-down (positive logic)
+  IOMUX->SECCFG.PINCM[PB1INDEX] = 0x00050081;
+
+  // Initialize PB4 as GPIO input with pull-down (positive logic)
+  IOMUX->SECCFG.PINCM[PB4INDEX] = 0x00050081;
+
+  // Set PB1 and PB4 as inputs (0 = input in DOE register)
+  GPIOB->DOE31_0 &= ~((1<<1)|(1<<4));
+
+  // Rising edge trigger (positive logic = high when pressed)
+  GPIOB->POLARITY15_0 |= ((1<<8)|(1<<2));  // 0 = rising edge <<<<
+
+  // Clear any pending flags, then arm both pins
+  GPIOB->CPU_INT.ICLR  = (1<<1)|(1<<4);
+  GPIOB->CPU_INT.IMASK = (1<<1)|(1<<4);
+
+  // Set priority and enable GROUP1 in NVIC
+  NVIC->IP[0] = (NVIC->IP[0]&(~0x0000FF00))|2<<14;
+  NVIC->ISER[0] = 1<<1;
 }
 
+// volatile uint8_t PB1Pressed = 0;
+// volatile uint8_t PB4Pressed = 0;
 
+// void GROUP1_IRQHandler(void){
+//   uint32_t status = GPIOB->CPU_INT.RIS;
+
+//   GPIOB->DOUTTGL31_0 = GREEN;  // debug
+
+//   if(status & (1<<1)){
+//     PB1Pressed = 1;
+//   }
+//   if(status & (1<<4)){
+//     PB4Pressed = 1;
+//   }
+
+//   GPIOB->CPU_INT.ICLR = status;
+//   (void) GPIOB->CPU_INT.RIS;  // flush write
+// }

@@ -49,6 +49,7 @@ void GROUP1_IRQHandler(void){
  @endcode
  */
 void EdgeTriggered_Init(void);
+//void GROUP1_IRQHandler(void);
 
 
 #endif // __EDGETRIGGERED_H__

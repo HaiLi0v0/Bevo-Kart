@@ -46,6 +46,11 @@
 			<locationURI>PARENT-1-PROJECT_LOC/inc/DAC5.c</locationURI>
 		</link>
 		<link>
+			<name>EdgeTriggered.c</name>
+			<type>1</type>
+			<locationURI>PARENT-1-PROJECT_LOC/inc/EdgeTriggered.c</locationURI>
+		</link>
+		<link>
 			<name>LaunchPad.c</name>
 			<type>1</type>
 			<locationURI>PARENT-1-PROJECT_LOC/inc/LaunchPad.c</locationURI>
