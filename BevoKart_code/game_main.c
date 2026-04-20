@@ -29,10 +29,24 @@
 #include "Sound.h"
 #include "images/BKsprites/images.h"
 
-typedef enum { START, PLAY, WIN, LOSE } GameState_t;
-typedef enum { EASY, MEDIUM, HARD }    Difficulty_t;
-typedef enum { ENGLISH, SPANISH }      Language_t;
+typedef enum { START, 
+  PLAY,
+  WIN, 
+  LOSE 
+} GameState_t;
 
+typedef enum { 
+  EASY, 
+  MEDIUM, 
+  HARD 
+} Difficulty_t;
+
+typedef enum { 
+  ENGLISH, 
+  SPANISH 
+} Language_t;
+
+//initializing
 volatile GameState_t State;
 Difficulty_t Difficulty;
 Language_t   Language = ENGLISH;
@@ -76,6 +90,7 @@ uint32_t Random(uint32_t n){
   return (Random32()>>16) % n; 
 }
 
+//==================================================
 // UART1 driver 
 //PA8=TX, PA9=RX
 #define PA8INDEX 18
@@ -123,26 +138,45 @@ volatile uint8_t SendLoseFlag = 0;
 #define PKT_POS  0xFF   // position update: FF x y
 #define PKT_LOSE 0xFE   // sender lost the game: FE 00 00
 
+//==================================================
 // Difficulty 
 void SetDifficulty(Difficulty_t d){
   switch(d){
-    case EASY:   obstacleSpeed = 1; spawnInterval = 150; break; // 5s at 30Hz
-    case MEDIUM: obstacleSpeed = 2; spawnInterval = 90;  break; // 3s
-    case HARD:   obstacleSpeed = 3; spawnInterval = 45;  break; // 1.5s
+    case EASY:   
+      obstacleSpeed = 1; 
+      spawnInterval = 150; 
+      break; // 5s at 30Hz
+    case MEDIUM: 
+      obstacleSpeed = 2; 
+      spawnInterval = 90;  
+      break; // 3s
+    case HARD:   
+      obstacleSpeed = 3; 
+      spawnInterval = 45;  
+      break; // 1.5s
   }
+  
+  // update variables
   sqr.vx = obstacleSpeed;
   sqr.vy = obstacleSpeed;
   bombs.vy = obstacleSpeed;
 }
 
+// needed to flip ADC logic due to orientation
 static Difficulty_t ReadDifficulty(void){
   uint32_t adc = ADCin();
-  if(adc < 1366) return EASY;
+  if(adc < 1366) return HARD;
   if(adc < 2731) return MEDIUM;
-  return HARD;
+  return EASY;
 }
 
+//==================================================
 // Sprite functions
+
+/*
+SpawnBomb:
+bomb spawns at a random x position and travels down the screen at a random velocity
+*/
 void SpawnBomb(void){
   bombs.x = Random(70) + 20;
   bombs.y = bombs.h - 1;   // top of screen
@@ -152,6 +186,7 @@ void SpawnBomb(void){
   bombActive = 1;
 }
 
+//initializing the graphics before the main function
 void graphics_init(void){
   utc.x = 30;   utc.y = 110;
   utc.xold = utc.x; utc.yold = utc.y;
@@ -186,6 +221,8 @@ void graphics_init(void){
   spawnTimer = 0;
 }
 
+// function to draw the sprites
+// >> allows for cleaner code 
 void draw(sprite_t *s){
   if(!s->needDraw) return;
   ST7735_DrawBitmap(s->x, s->y, s->image, s->w, s->h);
@@ -193,6 +230,7 @@ void draw(sprite_t *s){
   s->yold = s->y;
 }
 
+//==================================================
 // displays
 // Draws animated track as background, then overlays centered text each call
 // 128x160 display, SmallFont 6x8px -> 21 cols x 20 rows
@@ -208,13 +246,13 @@ void DrawStartScreen(Difficulty_t d){
   // Language row — PB4 toggles
   ST7735_SetCursor(4, 4);    // "Language:PB4" 12 chars -> col 4
   if(Language == ENGLISH){
-    ST7735_OutString("Lang(PB4):  ");
+    ST7735_OutString("Lang(Right):  ");
     ST7735_SetCursor(7, 5);  // "ENGLISH" 7 chars -> col 7
     ST7735_OutString("ENGLISH");
   } else {
-    ST7735_OutString("Idioma(PB4):");
+    ST7735_OutString("Idioma(Bien):");
     ST7735_SetCursor(7, 5);  // "ESPANOL" 7 chars -> col 7
-    ST7735_OutString("ESPANOL");
+    ST7735_OutString(" ESPANOL");
   }
 
   // Difficulty row — slide pot
@@ -235,8 +273,11 @@ void DrawStartScreen(Difficulty_t d){
 
   // Start prompt
   ST7735_SetCursor(4, 14);
-  if(Language == ENGLISH) ST7735_OutString("PB1 to start");  // 12 chars -> col 4
-  else                    ST7735_OutString("PB1 pa jugar");  // 12 chars -> col 4
+  if(Language == ENGLISH){ 
+    ST7735_OutString(" left to start ");  // 12 chars -> col 4
+  } else{
+    ST7735_OutString(" izquierda pa jugar ");  // 12 chars -> col 4
+  } 
 }
 
 void DrawWinScreen(void){
@@ -247,8 +288,8 @@ void DrawWinScreen(void){
   if(Language == ENGLISH) ST7735_OutString(" YOU WIN! ");
   else                    ST7735_OutString(" GANASTE! ");
   ST7735_SetCursor(3, 10);
-  if(Language == ENGLISH) ST7735_OutString(" PB1 to replay ");
-  else                    ST7735_OutString("  PB1 rejugar  ");
+  if(Language == ENGLISH) ST7735_OutString(" left to replay ");
+  else                    ST7735_OutString("  izquierda rejugar  ");
 }
 
 void DrawLoseScreen(void){
@@ -258,11 +299,14 @@ void DrawLoseScreen(void){
   ST7735_SetCursor(6, 7);
   if(Language == ENGLISH) ST7735_OutString(" YOU LOSE ");
   else                    ST7735_OutString(" PERDISTE ");
+  
   ST7735_SetCursor(3, 10);
-  if(Language == ENGLISH) ST7735_OutString(" PB1 to replay ");
-  else                    ST7735_OutString("  PB1 rejugar  ");
+  
+  if(Language == ENGLISH) ST7735_OutString(" left to replay ");
+  else                    ST7735_OutString("  izquierda rejugar  ");
 }
 
+//===================================================
 // UART code
 void UART_SendPos(int32_t x, int32_t y){
   UART1_OutChar((char)PKT_POS);
@@ -299,6 +343,7 @@ void UART_Receive(void){
   othercar->y = (int32_t)(uint8_t)ry;
 }
 
+// =================================================
 // Collision
 // y is the bottom row of sprite
 int32_t collides(sprite_t *a, sprite_t *b){
@@ -415,7 +460,7 @@ int main(void){
   PLL_Init();
   LaunchPad_Init();
   EdgeTriggered_Init();
-  IOMUX->SECCFG.PINCM[43] = 0x00000000;  // PB18 analog mode for slide pot (no digital function)
+  IOMUX->SECCFG.PINCM[43] = 0x00000000;  // PB18 slidepot
   ADCinit();
   UART1_Init();
   ST7735_InitPrintf(INITR_REDTAB);
@@ -446,8 +491,13 @@ int main(void){
     // start screen
     while(State == START){
       Difficulty_t d = ReadDifficulty();
-      if(PB4Pressed){ PB4Pressed = 0; Language = (Language == ENGLISH) ? SPANISH : ENGLISH; }
+      if(PB4Pressed){ 
+        PB4Pressed = 0; 
+        Language = (Language == ENGLISH) ? SPANISH : ENGLISH;
+      }
+      
       DrawStartScreen(d);
+      
       if(PB1Pressed){
         PB1Pressed = 0;
         Difficulty = d;
@@ -468,14 +518,19 @@ int main(void){
     while(State == PLAY){
       if(gameReady){
         gameReady = 0;
-        if(SendLoseFlag){ SendLoseFlag = 0; UART_SendLose(); }
+        if(SendLoseFlag){ 
+          SendLoseFlag = 0; 
+          UART_SendLose(); 
+        }
         UART_SendPos(mycar->x, mycar->y);
         UART_Receive();
         ST7735_DrawBitmap(0, 160, animFrame ? track_2 : track_1, 128, 160);
         draw(&sqr);
         draw(&utc);
         draw(&amc);
-        if(bombActive) draw(&bombs);
+        if(bombActive){ 
+          draw(&bombs);
+        }
       }
     }
 
@@ -488,6 +543,7 @@ int main(void){
     
     PB1Pressed = 0;
     
+    // wait for button to restart
     while(!PB1Pressed){
       if(State == WIN){
         DrawWinScreen();
@@ -499,10 +555,6 @@ int main(void){
       Clock_Delay1ms(100);
       __enable_irq();
     }
-    
-
-    
-      // wait for button to restart
     
   }
 }
