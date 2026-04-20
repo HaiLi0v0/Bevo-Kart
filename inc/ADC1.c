@@ -18,24 +18,22 @@ void ADCinit(void){
   //Blind cycle 
   Clock_Delay(24);                        // 3) wait
   // configuration
-  ADC1->ULLMEM.GPRCM.CLKCFG = 0xA9000000; // 4) ULPCLK --> guessing 
-  ADC1->ULLMEM.CLKFREQ = 7;               // 5) 40-48 MHz
+  ADC1->ULLMEM.GPRCM.CLKCFG = 0xA9000001; // 4) SYSOSC ~4MHz (0x00 = disabled, was the bug)
+  ADC1->ULLMEM.CLKFREQ = 1;               // 5) 4-8 MHz range to match SYSOSC
   ADC1->ULLMEM.CTL0 = 0x03010000;         // 6) divide by 8
   ADC1->ULLMEM.CTL1 = 0x00000000;         // 7) mode
   ADC1->ULLMEM.CTL2 = 0x00000000;         // 8) MEMRES
-  ADC1->ULLMEM.MEMCTL[0] = 6;             // 9) channel 6 is PB20
-  ADC1->ULLMEM.MEMCTL[0] = 5;             // 9) channel 5 is PB18
+  ADC1->ULLMEM.MEMCTL[0] = 5;             // 9) channel 5 = PB18 (slide pot)
   ADC1->ULLMEM.SCOMP0 = 0;                // 10) 8 sample clocks
   ADC1->ULLMEM.CPU_INT.IMASK = 0;         // 11) no interrupt
 }
+
 uint32_t ADCin(void){
-  // write code to sample ADC1 channel 5, PB18 once
-  // return digital result (0 to 4095)
-  ADC1->ULLMEM.CTL0 |= 0x00000001;             // 1) enable conversions
-  ADC1->ULLMEM.CTL1 |= 0x00000100;             // 2) start ADC
-  uint32_t volatile delay=ADC1->ULLMEM.STATUS; // 3) time to let ADC start
-  while((ADC1->ULLMEM.STATUS&0x01)==0x01){}    // 4) wait for completion
-  return ADC1->ULLMEM.MEMRES[0];               // 5) 12-bit result
+  uint32_t volatile i;
+  ADC1->ULLMEM.CTL0 |= 0x00000001;   // enable
+  ADC1->ULLMEM.CTL1 |= 0x00000100;   // start (SC bit)
+  for(i = 0; i < 10000; i++);        // fixed wait: ~125us at 80MHz, covers full conversion
+  return ADC1->ULLMEM.MEMRES[0];
 }
 
 // your function to convert ADC sample to distance (0.001cm)
