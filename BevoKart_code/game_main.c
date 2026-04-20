@@ -3,6 +3,13 @@
 // Lab 9 ECE319K
 // Your name
 // Last Modified: January 12, 2026
+// game_main.c
+// Runs on MSPM0G3507
+// BevoKart - ECE319K
+// 2-player racing game with UART, obstacles, and difficulty selection
+
+// ---- Uncomment for UT board, comment out for A&M board ----
+#define PLAYER1
 
 #include <stdio.h>
 #include <stdint.h>
@@ -22,270 +29,433 @@
 #include "Sound.h"
 #include "images/BKsprites/images.h"
 
+// ----------------------------------------------------------------
+// Types
+// ----------------------------------------------------------------
+typedef enum { START, PLAY, WIN, LOSE } GameState_t;
+typedef enum { EASY, MEDIUM, HARD }    Difficulty_t;
 
-typedef enum {
-  START,
-  PLAY,
-  P1_WIN,
-  P2_WIN
-} GameState_t;
-
-GameState_t State;
-// extern volatile uint8_t PB1Pressed;
-// extern volatile uint8_t PB4Pressed;
-uint32_t PB1Pressed, PB4Pressed;
+volatile GameState_t State;
+Difficulty_t Difficulty;
 
 struct sprite {
-  int32_t x;      // x coordinate
-  int32_t y;      // y coordinate
-  int32_t xold, yold;
-  int32_t vx,vy;  // pixels/30Hz
-  const unsigned short *image; // ptr->image
-  //const unsigned short *black;
-  //status_t life;        // dead/alive
-  int32_t w; // width
-  int32_t h; // height
-  uint32_t needDraw; // true if need to draw
+  int32_t x, y, xold, yold, vx, vy;
+  const unsigned short *image;
+  int32_t w, h;
+  uint32_t needDraw;
 };
 typedef struct sprite sprite_t;
 
-  sprite_t utc;
-  sprite_t amc;
-  sprite_t bombs;
-  sprite_t sqr;
+// ----------------------------------------------------------------
+// Sprites
+// ----------------------------------------------------------------
+sprite_t utc, amc, sqr, bombs;
+sprite_t *mycar;     // points to this board's car
+sprite_t *othercar;  // points to the other board's car
 
+// ----------------------------------------------------------------
+// Game globals
+// ----------------------------------------------------------------
+uint32_t PB1Pressed, PB4Pressed;
+volatile uint8_t gameReady = 0;
+volatile uint8_t animFrame = 0;
+int32_t  bombActive   = 0;
+uint32_t spawnTimer   = 0;
+uint32_t spawnInterval;   // ticks between bomb spawns
+int32_t  obstacleSpeed;   // pixels/tick for obstacles
 
-  
-uint8_t TExaS_LaunchPadLogicPB27PB26(void){
-  return (0x80|((GPIOB->DOUT31_0>>26)&0x03));
-}
-// ****note to ECE319K students****
-// the data sheet says the ADC does not work when clock is 80 MHz
-// however, the ADC seems to work on my boards at 80 MHz
-// I suggest you try 80MHz, but if it doesn't work, switch to 40MHz
-void PLL_Init(void){ // set phase lock loop (PLL)
-  // Clock_Init40MHz(); // run this line for 40MHz
-  Clock_Init80MHz(0);   // run this line for 80MHz
-}
-
-uint32_t M=1;
-uint32_t Random32(void){
-  M = 1664525*M+1013904223;
-  return M;
-}
-uint32_t Random(uint32_t n){
-  return (Random32()>>16)%n;
+// ----------------------------------------------------------------
+// Clock / PLL
+// ----------------------------------------------------------------
+void PLL_Init(void){
+  Clock_Init80MHz(0);
 }
 
-// // games  engine runs at 30Hz
-// void TIMG12_IRQHandler(void){uint32_t pos,msg;
-//   if((TIMG12->CPU_INT.IIDX) == 1){ // this will acknowledge
-//     GPIOB->DOUTTGL31_0 = GREEN; // toggle PB27 (minimally intrusive debugging)
-//     GPIOB->DOUTTGL31_0 = GREEN; // toggle PB27 (minimally intrusive debugging)
-// // game engine goes here
-//     // 1) sample slide pot
-//     // 2) read input switches
-//     // 3) move sprites
-//     // 4) start sounds
-//     // 5) set semaphore
-//     // NO LCD OUTPUT IN INTERRUPT SERVICE ROUTINES
-//     GPIOB->DOUTTGL31_0 = GREEN; // toggle PB27 (minimally intrusive debugging)
-//   }
-// }
+// ----------------------------------------------------------------
+// Random number generator
+// ----------------------------------------------------------------
+uint32_t M = 1;
+uint32_t Random32(void){ M = 1664525*M + 1013904223; return M; }
+uint32_t Random(uint32_t n){ return (Random32()>>16) % n; }
 
-// initialize the graphics on the screen
-void graphics_init(void){
-  //UT car
-  utc.x = 30;
-  utc.y = 90;
-  utc.xold = utc.x;
-  utc.yold = utc.y;
-  utc.vx = 0;
-  utc.vy = 0;
-  utc.image = ut_car1;
-  utc.w = 15;
-  utc.h = 27;
-  utc.needDraw = 1;
-  
-  //A&M car
-  amc.x = 80;
-  amc.y = 90;
-  amc.xold = amc.x;
-  amc.yold = amc.y;
-  amc.vx = 0;
-  amc.vy = 0;
-  amc.image = am_car1;
-  amc.w = 15;
-  amc.h = 27;
-  amc.needDraw = 1;
-  
-  //bomb
-  bombs.x = 50;
-  bombs.y = 110;
-  bombs.xold = bombs.x;
-  bombs.yold = bombs.y;
+// ----------------------------------------------------------------
+// UART1 driver (PA8=TX, PA9=RX) — defined here to avoid duplicate symbols with TExaS.c
+// ----------------------------------------------------------------
+#define PA8INDEX 18
+#define PA9INDEX 19
+
+void UART1_Init(void){
+  UART1->GPRCM.RSTCTL = 0xB1000003;
+  UART1->GPRCM.PWREN  = 0x26000001;
+  Clock_Delay(24);
+  IOMUX->SECCFG.PINCM[PA8INDEX] = 0x00000082;  // PA8 = UART1 TX
+  IOMUX->SECCFG.PINCM[PA9INDEX] = 0x00040082;  // PA9 = UART1 RX
+  UART1->CLKSEL = 0x08;
+  UART1->CLKDIV = 0x00;
+  UART1->CTL0 &= ~0x01;
+  UART1->CTL0  = 0x00020018;
+  // 80MHz bus -> ULPCLK 40MHz -> /16 = 2.5MHz; 2.5MHz/115200 = 21.701 -> IBRD=21 FBRD=45
+  UART1->IBRD = 21;
+  UART1->FBRD = 45;
+  UART1->LCRH = 0x00000030;  // 8-bit, 1 stop, no parity
+  UART1->CPU_INT.IMASK = 0;
+  UART1->IFLS = 0x0422;
+  UART1->CTL0 |= 0x01;
+}
+
+char UART1_InChar(void){
+  while((UART1->STAT & 0x04) == 0x04){};  // wait while RX FIFO empty
+  return (char)(UART1->RXDATA);
+}
+
+void UART1_OutChar(char data){
+  while((UART1->STAT & 0x80) == 0x80){};  // wait while TX FIFO full
+  UART1->TXDATA = data;
+}
+
+// ----------------------------------------------------------------
+// UART non-blocking helper
+// UART1_InChar waits on STAT & 0x04 (bit 2 = RXFE), so Available checks same bit
+// ----------------------------------------------------------------
+#define UART_RXFE 0x04
+static uint8_t UART1_Available(void){
+  return !(UART1->STAT & UART_RXFE);
+}
+
+// Flag set by ISR when a lose condition occurs — main loop sends the packet
+volatile uint8_t SendLoseFlag = 0;
+
+// Packet types
+#define PKT_POS  0xFF   // position update: FF x y
+#define PKT_LOSE 0xFE   // sender lost the game: FE 00 00
+
+// ----------------------------------------------------------------
+// Difficulty setup
+// ----------------------------------------------------------------
+void SetDifficulty(Difficulty_t d){
+  switch(d){
+    case EASY:   obstacleSpeed = 1; spawnInterval = 150; break; // 5s at 30Hz
+    case MEDIUM: obstacleSpeed = 2; spawnInterval = 90;  break; // 3s
+    case HARD:   obstacleSpeed = 3; spawnInterval = 45;  break; // 1.5s
+  }
+  sqr.vx = obstacleSpeed;
+  sqr.vy = obstacleSpeed;
+  bombs.vy = obstacleSpeed;
+}
+
+static Difficulty_t ReadDifficulty(void){
+  uint32_t adc = ADCin();
+  if(adc < 1366) return EASY;
+  if(adc < 2731) return MEDIUM;
+  return HARD;
+}
+
+// ----------------------------------------------------------------
+// Sprite helpers
+// ----------------------------------------------------------------
+void SpawnBomb(void){
+  bombs.x = Random(70) + 20;
+  bombs.y = bombs.h - 1;   // top of screen
   bombs.vx = 0;
-  bombs.vy = 0;
-  bombs.image = bomb;
-  bombs.w = 10;
-  bombs.h = 10;
-  bombs.needDraw = 0;
+  bombs.vy = obstacleSpeed;
+  bombs.needDraw = 1;
+  bombActive = 1;
+}
 
-  //squirrel
-  sqr.x = 50;
-  sqr.y = 50;
-  sqr.xold = sqr.x;
-  sqr.yold = sqr.y;
-  sqr.vx = 0;
-  sqr.vy = 0;
+void graphics_init(void){
+  utc.x = 30;   utc.y = 110;
+  utc.xold = utc.x; utc.yold = utc.y;
+  utc.vx = 0; utc.vy = 0;
+  utc.image = ut_car1;
+  utc.w = 15; utc.h = 27;
+  utc.needDraw = 1;
+
+  amc.x = 80;   amc.y = 110;
+  amc.xold = amc.x; amc.yold = amc.y;
+  amc.vx = 0; amc.vy = 0;
+  amc.image = am_car1;
+  amc.w = 15; amc.h = 27;
+  amc.needDraw = 1;
+
+  sqr.x = 50;   sqr.y = 20;
+  sqr.xold = sqr.x; sqr.yold = sqr.y;
+  sqr.vx = obstacleSpeed;
+  sqr.vy = obstacleSpeed;
   sqr.image = sq_r1;
-  sqr.w = 20;
-  sqr.h = 10;
-  sqr.needDraw = 0;
+  sqr.w = 20; sqr.h = 10;
+  sqr.needDraw = 1;
+
+  bombs.x = 50; bombs.y = 9;
+  bombs.xold = bombs.x; bombs.yold = bombs.y;
+  bombs.vx = 0; bombs.vy = obstacleSpeed;
+  bombs.image = bomb;
+  bombs.w = 10; bombs.h = 10;
+  bombs.needDraw = 0;
+  bombActive = 0;
+
+  spawnTimer = 0;
 }
 
 void draw(sprite_t *s){
+  if(!s->needDraw) return;
   ST7735_DrawBitmap(s->x, s->y, s->image, s->w, s->h);
   s->xold = s->x;
   s->yold = s->y;
 }
 
-//used to update graphics of the game
-void up_graphics(void){
-  //check for which button is pressed and move according to the button
-  
+// ----------------------------------------------------------------
+// Screens
+// ----------------------------------------------------------------
+void DrawStartScreen(Difficulty_t d){
+  ST7735_FillScreen(ST7735_BLACK);
+  ST7735_SetCursor(2, 1);
+  ST7735_OutString("BEVOKART");
+  ST7735_SetCursor(0, 4);
+  ST7735_OutString("Difficulty:");
+  ST7735_SetCursor(0, 6);
+  if(d == EASY)        ST7735_OutString("  EASY  ");
+  else if(d == MEDIUM) ST7735_OutString(" MEDIUM ");
+  else                 ST7735_OutString("  HARD  ");
+  ST7735_SetCursor(0, 10);
+  ST7735_OutString("Press PB1");
+  ST7735_SetCursor(0, 11);
+  ST7735_OutString(" to start");
 }
 
-void UpdatePlayers(void){
+// Updates only the difficulty text line — no full-screen redraw, no flicker
+void UpdateDifficultyDisplay(Difficulty_t d){
+  ST7735_SetCursor(0, 6);
+  if(d == EASY)        ST7735_OutString("  EASY  ");
+  else if(d == MEDIUM) ST7735_OutString(" MEDIUM ");
+  else                 ST7735_OutString("  HARD  ");
+}
+
+void DrawWinScreen(void){
+  ST7735_FillScreen(ST7735_BLACK);
+  ST7735_SetCursor(1, 4);
+  ST7735_OutString("YOU WIN!");
+  ST7735_SetCursor(0, 8);
+  ST7735_OutString("PB1 to replay");
+}
+
+void DrawLoseScreen(void){
+  ST7735_FillScreen(ST7735_RED);
+  ST7735_SetCursor(1, 4);
+  ST7735_OutString("YOU LOSE");
+  ST7735_SetCursor(0, 8);
+  ST7735_OutString("PB1 to replay");
+}
+
+// ----------------------------------------------------------------
+// UART communication
+// ----------------------------------------------------------------
+void UART_SendPos(int32_t x, int32_t y){
+  UART1_OutChar((char)PKT_POS);
+  UART1_OutChar((char)(x & 0xFF));
+  UART1_OutChar((char)(y & 0xFF));
+}
+
+void UART_SendLose(void){
+  UART1_OutChar((char)PKT_LOSE);
+  UART1_OutChar(0x00);
+  UART1_OutChar(0x00);
+}
+
+// Call from main loop (not ISR) — non-blocking
+void UART_Receive(void){
+  if(!UART1_Available()) return;
+  char sync = UART1_InChar();
+
+  if((uint8_t)sync == PKT_LOSE){
+    if(UART1_Available()) UART1_InChar();  // drain x
+    if(UART1_Available()) UART1_InChar();  // drain y
+    State = WIN;
+    return;
+  }
+
+  if((uint8_t)sync != PKT_POS) return;  // unknown byte, discard
+
+  if(!UART1_Available()) return;
+  char rx = UART1_InChar();
+  if(!UART1_Available()) return;
+  char ry = UART1_InChar();
+
+  othercar->x = (int32_t)(uint8_t)rx;
+  othercar->y = (int32_t)(uint8_t)ry;
+}
+
+// ----------------------------------------------------------------
+// Collision: y is the bottom row of sprite
+// ----------------------------------------------------------------
+int32_t collides(sprite_t *a, sprite_t *b){
+  return (a->x < b->x + b->w) && (a->x + a->w  > b->x) && (a->y - a->h + 1 <= b->y)&&(a->y >= b->y - b->h + 1);
+}
+
+// ----------------------------------------------------------------
+// Game logic (called from 30Hz ISR)
+// ----------------------------------------------------------------
+void UpdateMyPlayer(void){
   if(PB1Pressed){
-    PB1Pressed = 0;      // clear FIRST before acting
-    utc.x -= 5;
-    if(utc.x < 20) utc.x = 20;
+    PB1Pressed = 0;
+    mycar->x -= 5;
+    if(mycar->x < 20) mycar->x = 20;
   }
-
   if(PB4Pressed){
-    PB4Pressed = 0;      // clear FIRST before acting
-    utc.x += 5;
-    if(utc.x > 90) utc.x = 90;
+    PB4Pressed = 0;
+    mycar->x += 5;
+    if(mycar->x > 90) mycar->x = 90;
   }
 }
 
-// in TIMG12_IRQHandler — move game logic here
+void UpdateSprites(void){
+  // Move squirrel diagonally, bounce off track walls
+  sqr.x += sqr.vx;
+  sqr.y += sqr.vy;
+  if(sqr.x < 20)           { sqr.x = 20;            sqr.vx = -sqr.vx; }
+  if(sqr.x + sqr.w > 90)   { sqr.x = 90 - sqr.w;   sqr.vx = -sqr.vx; }
+  if(sqr.y > 160)             sqr.y = sqr.h - 1;    // wrap top
+  if(sqr.y < sqr.h - 1)      sqr.y = 160;           // wrap bottom
 
-volatile uint8_t gameReady = 0;
-volatile uint8_t animFrame = 0;  // 0 or 1, toggles each tick
+  // Move bomb down, despawn when it exits screen
+  if(bombActive){
+    bombs.y += bombs.vy;
+    if(bombs.y > 160){ bombActive = 0; bombs.needDraw = 0; }
+  }
 
+  // Periodically spawn a new bomb
+  spawnTimer++;
+  if(spawnTimer >= spawnInterval){
+    spawnTimer = 0;
+    if(!bombActive) SpawnBomb();
+  }
+
+  // Squirrel collision: push car down while touching
+  if(collides(mycar, &sqr)){
+    mycar->y += 5;
+    if(mycar->y > 160){          // pushed off the bottom
+      SendLoseFlag = 1;
+      State = LOSE;
+      return;
+    }
+  }
+
+  // Bomb collision: immediate lose
+  if(bombActive && collides(mycar, &bombs)){
+    SendLoseFlag = 1;
+    State = LOSE;
+  }
+}
+
+// ----------------------------------------------------------------
+// Interrupt handlers
+// ----------------------------------------------------------------
 void TIMG12_IRQHandler(void){
   if((TIMG12->CPU_INT.IIDX) == 1){
     GPIOB->DOUTTGL31_0 = GREEN;
 
-    UpdatePlayers();
+    if(State == PLAY){
+      UpdateMyPlayer();
+      UpdateSprites();
 
-    // toggle animation frame each tick
-    animFrame ^= 1;
+      animFrame ^= 1;
+      utc.image = animFrame ? ut_car2 : ut_car1;
+      amc.image = animFrame ? am_car2 : am_car1;
+      sqr.image = animFrame ? sq_r1   : sq_r2;
 
-    // update sprite images based on frame
-    utc.image  = animFrame ? ut_car2  : ut_car1;
-    amc.image  = animFrame ? am_car2  : am_car1;
-    sqr.image  = animFrame ? sq_r1    : sq_r2;
+      gameReady = 1;
+    }
 
-    gameReady = 1;
     GPIOB->DOUTTGL31_0 = GREEN;
   }
 }
 
+void GROUP1_IRQHandler(void){
+  uint32_t status = GPIOB->CPU_INT.RIS;
+  if(status & (1<<1)) PB1Pressed = 1;
+  if(status & (1<<4)) PB4Pressed = 1;
+  GPIOB->CPU_INT.ICLR = (1<<1)|(1<<4);
+}
 
-int main(void){ 
+// ----------------------------------------------------------------
+// Main
+// ----------------------------------------------------------------
+int main(void){
   __disable_irq();
   PLL_Init();
   LaunchPad_Init();
   EdgeTriggered_Init();
-  PB1Pressed = 0;
-  PB4Pressed = 0;
+  IOMUX->SECCFG.PINCM[43] = 0x00000000;  // PB18 analog mode for slide pot (no digital function)
+  ADCinit();
+  UART1_Init();
   ST7735_InitPrintf(INITR_REDTAB);
-  ST7735_FillScreen(ST7735_BLACK);
-  graphics_init();
-  TimerG12_IntArm(2666667, 2);  // start 30Hz game tick ← add this
-  __enable_irq();   
-  
-  while(1){
-    UpdatePlayers();
-    if(gameReady){
-      gameReady = 0;                              // reset flag
-      ST7735_DrawBitmap(0, 160,animFrame ? track_2 : track_1, 128, 160);
-      draw(&sqr);                                 // then sprites on top
-      draw(&utc);
-      draw(&amc);
-      draw(&bombs);
-    }
-  }
-}
-
-void GROUP1_IRQHandler(void){
-  
-  uint32_t status = GPIOB->CPU_INT.RIS;
-  
-  if(status & (1<<1)){
-    PB1Pressed = 1;
-  }
-  if(status & (1<<4)){
-    PB4Pressed = 1;
-  }
-  GPIOB->DOUTTGL31_0 = GREEN; // toggle PB26
-  GPIOB->CPU_INT.ICLR = 0x00000012; // clear bit 21
-}
-
-// game engine
-// bounds of the track 20<= x <= 90
-int main0(void){ 
-  __disable_irq();
-  PLL_Init(); // set bus speed
-  LaunchPad_Init();
-  EdgeTriggered_Init();
   PB1Pressed = 0;
   PB4Pressed = 0;
-  TimerG12_IntArm(2666667, 2);
-  ST7735_InitPrintf(INITR_REDTAB); // INITR_REDTAB for AdaFruit, INITR_BLACKTAB for HiLetGo
-    //note: if you colors are weird, see different options for
-    // ST7735_InitR(INITR_REDTAB); inside ST7735_InitPrintf()
-  ST7735_FillScreen(ST7735_BLACK);
-  graphics_init();
-  __enable_irq();   
-  
-  while(1)
-  {
-  ST7735_DrawBitmap(0, 160, track_1, 128, 160);
-  utc.image = ut_car1;
-  amc.image = am_car1;
-  sqr.image = sq_r2;
 
-  UpdatePlayers();
-  if(gameReady){
-    gameReady = 0; 
-    draw(&sqr);
-    draw(&utc);
-    draw(&amc);
-    draw(&bombs);
-  }
-  
-  Clock_Delay1ms(80);
-  
-  ST7735_DrawBitmap(0, 160, track_2, 128, 160);
-  utc.image = ut_car2;
-  amc.image = am_car2;
-  sqr.image = sq_r1;
-  
-  UpdatePlayers();
+  // Assign cars based on board identity
+#ifdef PLAYER1
+  mycar    = &utc;
+  othercar = &amc;
+#else
+  mycar    = &amc;
+  othercar = &utc;
+#endif
 
-  if (gameReady) {
-    gameReady = 0; 
-    draw(&sqr);
-    draw(&utc);
-    draw(&amc);
-    draw(&bombs);
+  __enable_irq();
+
+  while(1){  // replay loop — runs a full game each iteration
+
+    // ---- Reset state for new game ----
+    State = START;
+    PB1Pressed = 0;
+    PB4Pressed = 0;
+    SendLoseFlag = 0;
+    gameReady = 0;
+    animFrame = 0;
+
+    // ---- START screen: draw base once, update difficulty text each poll ----
+    DrawStartScreen(EASY);
+    while(State == START){
+      Difficulty_t d = ReadDifficulty();
+      UpdateDifficultyDisplay(d);   // rewrites only the difficulty line, no flicker
+      if(PB1Pressed){
+        PB1Pressed = 0;
+        Difficulty = d;
+        SetDifficulty(d);
+        State = PLAY;
+      }
+      Clock_Delay1ms(50);
+    }
+
+    // ---- Init game ----
+    __disable_irq();
+    graphics_init();
+    ST7735_FillScreen(ST7735_BLACK);
+    TimerG12_IntArm(2666667, 2);  // 30Hz
+    __enable_irq();
+
+    // ---- PLAY loop ----
+    while(State == PLAY){
+      if(gameReady){
+        gameReady = 0;
+        if(SendLoseFlag){ SendLoseFlag = 0; UART_SendLose(); }
+        UART_SendPos(mycar->x, mycar->y);
+        UART_Receive();
+        ST7735_DrawBitmap(0, 160, animFrame ? track_2 : track_1, 128, 160);
+        draw(&sqr);
+        draw(&utc);
+        draw(&amc);
+        if(bombActive) draw(&bombs);
+      }
+    }
+
+    // ---- End screen: show result and wait for PB1 to replay ----
+    __disable_irq();
+    if(SendLoseFlag){ SendLoseFlag = 0; UART_SendLose(); }
+    if(State == WIN)  DrawWinScreen();
+    if(State == LOSE) DrawLoseScreen();
+    __enable_irq();
+
+    PB1Pressed = 0;
+    while(!PB1Pressed);  // wait for button to restart
   }
-  
-  Clock_Delay1ms(80);
-  }
-  
 }
