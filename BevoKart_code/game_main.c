@@ -22,7 +22,7 @@
 #include "../inc/Timer.h"
 #include "../inc/ADC1.h"
 #include "../inc/DAC5.h"
-typelude "../inc/Arabic.h"
+#include  "../inc/Arabic.h"
 #include "SmallFont.h"
 #include "LED.h"
 #include "Switch.h"
@@ -519,6 +519,7 @@ int main(void){
   LaunchPad_Init();
   EdgeTriggered_Init();
   ADCinit();
+  Sound_Init();
   UART1_Init();
   ST7735_InitPrintf(INITR_REDTAB);
   PB1Pressed = 0;

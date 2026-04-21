@@ -34,7 +34,7 @@ game_main.o: ../game_main.c ../../inc/EdgeTriggered.h \
  ../../inc/ST7735.h ../../inc/Clock.h ../../inc/LaunchPad.h \
  ../../inc/TExaS.h ../../inc/Timer.h ../../inc/ADC1.h ../../inc/DAC5.h \
  ../../inc/Arabic.h ../SmallFont.h ../LED.h ../Switch.h ../Sound.h \
- ../images/BKsprites/images.h
+ ../images/BKsprites/images.h ../../inc/DAC.h
 ../../inc/EdgeTriggered.h:
 C:/ti/mspm0_sdk_2_09_00_01/source/ti/devices/msp/msp.h:
 C:/ti/mspm0_sdk_2_09_00_01/source/ti/devices/DeviceFamily.h:
@@ -79,3 +79,4 @@ C:/ti/mspm0_sdk_2_09_00_01/source/ti/devices/msp/peripherals/m0p/sysctl/hw_sysct
 ../Switch.h:
 ../Sound.h:
 ../images/BKsprites/images.h:
+../../inc/DAC.h:

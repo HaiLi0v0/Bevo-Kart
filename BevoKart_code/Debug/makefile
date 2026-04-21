@@ -13,6 +13,7 @@ ORDERED_OBJS += \
 "./ADC1.o" \
 "./Arabic.o" \
 "./Clock.o" \
+"./DAC.o" \
 "./DAC5.o" \
 "./EdgeTriggered.o" \
 "./LED.o" \
@@ -160,8 +161,8 @@ BevoKart_code.out: $(OBJS) $(CMD_SRCS) $(GEN_CMDS)
 # Other Targets
 clean:
 	-$(RM) $(EXE_OUTPUTS__QUOTED)
-	-$(RM) "ADC1.o" "Arabic.o" "Clock.o" "DAC5.o" "EdgeTriggered.o" "LED.o" "LaunchPad.o" "SPI.o" "ST7735.o" "SmallFont.o" "Sound.o" "Switch.o" "TExaS.o" "Timer.o" "game_main.o" "images\pipedreams\PipeSound.o" "ticlang\startup_mspm0g3507_ticlang.o" 
-	-$(RM) "ADC1.d" "Arabic.d" "Clock.d" "DAC5.d" "EdgeTriggered.d" "LED.d" "LaunchPad.d" "SPI.d" "ST7735.d" "SmallFont.d" "Sound.d" "Switch.d" "TExaS.d" "Timer.d" "game_main.d" "images\pipedreams\PipeSound.d" "ticlang\startup_mspm0g3507_ticlang.d" 
+	-$(RM) "ADC1.o" "Arabic.o" "Clock.o" "DAC.o" "DAC5.o" "EdgeTriggered.o" "LED.o" "LaunchPad.o" "SPI.o" "ST7735.o" "SmallFont.o" "Sound.o" "Switch.o" "TExaS.o" "Timer.o" "game_main.o" "images\pipedreams\PipeSound.o" "ticlang\startup_mspm0g3507_ticlang.o" 
+	-$(RM) "ADC1.d" "Arabic.d" "Clock.d" "DAC.d" "DAC5.d" "EdgeTriggered.d" "LED.d" "LaunchPad.d" "SPI.d" "ST7735.d" "SmallFont.d" "Sound.d" "Switch.d" "TExaS.d" "Timer.d" "game_main.d" "images\pipedreams\PipeSound.d" "ticlang\startup_mspm0g3507_ticlang.d" 
 	-@echo 'Finished clean'
 	-@echo ' '
 

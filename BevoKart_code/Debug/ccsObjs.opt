@@ -1,6 +1,7 @@
 "./ADC1.o"
 "./Arabic.o"
 "./Clock.o"
+"./DAC.o"
 "./DAC5.o"
 "./EdgeTriggered.o"
 "./LED.o"

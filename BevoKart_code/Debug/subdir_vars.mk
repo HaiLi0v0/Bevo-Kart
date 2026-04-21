@@ -12,6 +12,7 @@ C_SRCS += \
 C:/BevoKart/inc/ADC1.c \
 C:/BevoKart/inc/Arabic.c \
 C:/BevoKart/inc/Clock.c \
+C:/BevoKart/inc/DAC.c \
 C:/BevoKart/inc/DAC5.c \
 C:/BevoKart/inc/EdgeTriggered.c \
 ../LED.c \
@@ -29,6 +30,7 @@ C_DEPS += \
 ./ADC1.d \
 ./Arabic.d \
 ./Clock.d \
+./DAC.d \
 ./DAC5.d \
 ./EdgeTriggered.d \
 ./LED.d \
@@ -46,6 +48,7 @@ OBJS += \
 ./ADC1.o \
 ./Arabic.o \
 ./Clock.o \
+./DAC.o \
 ./DAC5.o \
 ./EdgeTriggered.o \
 ./LED.o \
@@ -63,6 +66,7 @@ OBJS__QUOTED += \
 "ADC1.o" \
 "Arabic.o" \
 "Clock.o" \
+"DAC.o" \
 "DAC5.o" \
 "EdgeTriggered.o" \
 "LED.o" \
@@ -80,6 +84,7 @@ C_DEPS__QUOTED += \
 "ADC1.d" \
 "Arabic.d" \
 "Clock.d" \
+"DAC.d" \
 "DAC5.d" \
 "EdgeTriggered.d" \
 "LED.d" \
@@ -97,6 +102,7 @@ C_SRCS__QUOTED += \
 "C:/BevoKart/inc/ADC1.c" \
 "C:/BevoKart/inc/Arabic.c" \
 "C:/BevoKart/inc/Clock.c" \
+"C:/BevoKart/inc/DAC.c" \
 "C:/BevoKart/inc/DAC5.c" \
 "C:/BevoKart/inc/EdgeTriggered.c" \
 "../LED.c" \
