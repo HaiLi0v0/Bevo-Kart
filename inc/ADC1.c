@@ -13,6 +13,7 @@ void ADCinit(void){
 // 12-bit mode, 0 to 3.3V, right justified
 // software trigger, no averaging
   // enabling ADC 
+  IOMUX->SECCFG.PINCM[43] = 0x00000000;  // PB18 slidepot
   ADC1->ULLMEM.GPRCM.RSTCTL = 0xB1000003; // 1) reset
   ADC1->ULLMEM.GPRCM.PWREN = 0x26000001;  // 2) activate
   //Blind cycle 
