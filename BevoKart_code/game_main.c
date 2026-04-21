@@ -22,12 +22,13 @@
 #include "../inc/Timer.h"
 #include "../inc/ADC1.h"
 #include "../inc/DAC5.h"
-#include "../inc/Arabic.h"
+typelude "../inc/Arabic.h"
 #include "SmallFont.h"
 #include "LED.h"
 #include "Switch.h"
 #include "Sound.h"
 #include "images/BKsprites/images.h"
+#include "../inc/DAC.h"
 
 typedef enum { START, 
   PLAY,
@@ -133,10 +134,15 @@ static uint8_t UART1_Available(void){
 
 // Flag set by ISR when a lose condition occurs — main loop sends the packet
 volatile uint8_t SendLoseFlag = 0;
+// Sound IDs for PKT_SOUND; set by collision logic, cleared in main loop
+volatile uint8_t SendSoundFlag = 0;
+#define SOUND_ID_SQUIRREL 0x01
+#define SOUND_ID_BOMB     0x02
 
 // Packet types
-#define PKT_POS  0xFF   // position update: FF x y
-#define PKT_LOSE 0xFE   // sender lost the game: FE 00 00
+#define PKT_POS   0xFF   // position update: FF x y
+#define PKT_LOSE  0xFE   // sender lost the game: FE 00 00
+#define PKT_SOUND 0xFD   // sound event: FD soundId 00
 
 //==================================================
 // Difficulty 
@@ -320,6 +326,12 @@ void UART_SendLose(void){
   UART1_OutChar(0x00);
 }
 
+void UART_SendSound(uint8_t soundId){
+  UART1_OutChar((char)PKT_SOUND);
+  UART1_OutChar((char)soundId);
+  UART1_OutChar(0x00);
+}
+
 // Call from main loop (not ISR) — non-blocking
 void UART_Receive(void){
   if(!UART1_Available()) return;
@@ -329,6 +341,15 @@ void UART_Receive(void){
     if(UART1_Available()) UART1_InChar();  // drain x
     if(UART1_Available()) UART1_InChar();  // drain y
     State = WIN;
+    return;
+  }
+
+  if((uint8_t)sync == PKT_SOUND){
+    uint8_t soundId = 0;
+    if(UART1_Available()) soundId = (uint8_t)UART1_InChar();
+    if(UART1_Available()) UART1_InChar();  // drain padding
+    if(soundId == SOUND_ID_SQUIRREL) Sound_SquirrelDeath();
+    else if(soundId == SOUND_ID_BOMB) Sound_Bomb();
     return;
   }
 
@@ -410,6 +431,8 @@ void UpdateSprites(void){
 
   // Squirrel collision
   if(collides(mycar, &sqr)){
+    Sound_SquirrelDeath();
+    SendSoundFlag = SOUND_ID_SQUIRREL;
     mycar->y += 5;
     if(mycar->y > 160){ // pushed off the screen
       SendLoseFlag = 1;
@@ -420,6 +443,8 @@ void UpdateSprites(void){
 
   // Bomb collision
   if(bombActive && collides(mycar, &bombs)){
+    Sound_Bomb();
+    SendSoundFlag = SOUND_ID_BOMB;
     SendLoseFlag = 1;
     State = LOSE;
   }
@@ -518,9 +543,14 @@ int main(void){
     while(State == PLAY){
       if(gameReady){
         gameReady = 0;
-        if(SendLoseFlag){ 
-          SendLoseFlag = 0; 
-          UART_SendLose(); 
+        if(SendLoseFlag){
+          SendLoseFlag = 0;
+          UART_SendLose();
+        }
+        if(SendSoundFlag){
+          uint8_t sid = SendSoundFlag;
+          SendSoundFlag = 0;
+          UART_SendSound(sid);
         }
         UART_SendPos(mycar->x, mycar->y);
         UART_Receive();
