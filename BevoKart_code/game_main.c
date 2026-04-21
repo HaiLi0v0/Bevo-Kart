@@ -72,6 +72,7 @@ int32_t  bombActive   = 0;
 uint32_t spawnTimer   = 0;
 uint32_t spawnInterval;   // ticks between bomb spawns
 int32_t  obstacleSpeed;   // pixels/tick for obstacles
+volatile uint32_t score = 0;
 
 // Clock
 void PLL_Init(void){
@@ -92,16 +93,16 @@ uint32_t Random(uint32_t n){
 
 //==================================================
 // UART1 driver 
-//PA8=TX, PA9=RX
-#define PA8INDEX 18
-#define PA9INDEX 19
+//PA8=TX, PA22=RX
+#define PA8INDEX  18
+#define PA22INDEX 47
 
 void UART1_Init(void){
   UART1->GPRCM.RSTCTL = 0xB1000003;
   UART1->GPRCM.PWREN  = 0x26000001;
   Clock_Delay(24);
-  IOMUX->SECCFG.PINCM[PA8INDEX] = 0x00000082;  // PA8 = UART1 TX
-  IOMUX->SECCFG.PINCM[PA9INDEX] = 0x00040082;  // PA9 = UART1 RX
+  IOMUX->SECCFG.PINCM[PA8INDEX]  = 0x00000082;  // PA8  = UART1 TX
+  IOMUX->SECCFG.PINCM[PA22INDEX] = 0x00040082;  // PA22 = UART1 RX
   UART1->CLKSEL = 0x08;
   UART1->CLKDIV = 0x00;
   UART1->CTL0 &= ~0x01;
@@ -284,26 +285,57 @@ void DrawWinScreen(void){
   static uint8_t bgFrame = 0;
   bgFrame ^= 1;
   ST7735_DrawBitmap(0, 160, bgFrame ? track_2 : track_1, 128, 160);
-  ST7735_SetCursor(6, 7);
-  if(Language == ENGLISH) ST7735_OutString(" YOU WIN! ");
-  else                    ST7735_OutString(" GANASTE! ");
-  ST7735_SetCursor(3, 10);
-  if(Language == ENGLISH) ST7735_OutString(" left to replay ");
-  else                    ST7735_OutString("  izquierda rejugar  ");
+  ST7735_SetCursor(6, 5);
+  if(Language == ENGLISH){
+    ST7735_OutString(" YOU WIN! ");
+  }else {
+    ST7735_OutString(" GANASTE! ");
+  }
+  
+  ST7735_SetCursor(4, 8);
+  
+  if(Language == ENGLISH){
+    ST7735_OutString("Score: ");
+  } else{
+    ST7735_OutString("Pts:   ");
+  }
+  
+  ST7735_OutUDec5(score);
+  ST7735_SetCursor(3, 12);
+  
+  if(Language == ENGLISH){
+    ST7735_OutString(" left to replay ");
+  } else{
+    ST7735_OutString("izquierda rejugar");
+  }
 }
 
 void DrawLoseScreen(void){
   static uint8_t bgFrame = 0;
   bgFrame ^= 1;
   ST7735_DrawBitmap(0, 160, bgFrame ? track_2 : track_1, 128, 160);
-  ST7735_SetCursor(6, 7);
-  if(Language == ENGLISH) ST7735_OutString(" YOU LOSE ");
-  else                    ST7735_OutString(" PERDISTE ");
+  ST7735_SetCursor(6, 5);
+  if(Language == ENGLISH){
+    ST7735_OutString(" YOU LOSE ");
+  }else {
+    ST7735_OutString(" PERDISTE ");
+  }
   
-  ST7735_SetCursor(3, 10);
+  ST7735_SetCursor(6, 8);
   
-  if(Language == ENGLISH) ST7735_OutString(" left to replay ");
-  else                    ST7735_OutString("  izquierda rejugar  ");
+  if(Language == ENGLISH){
+    ST7735_OutString("Score: ");
+  } else{
+    ST7735_OutString("Pts:   ");
+  }
+  
+  ST7735_OutUDec5(score);
+  ST7735_SetCursor(3, 12);
+  if(Language == ENGLISH){
+    ST7735_OutString(" left to replay ");
+  }else {
+    ST7735_OutString("izquierda rejugar");
+  }
 }
 
 //===================================================
@@ -385,6 +417,7 @@ void UpdateSprites(void){
   
   if(sqr.y > 160){
     sqr.y = sqr.h - 1; // wrap top
+    score++;
   }
   
   if(sqr.y < sqr.h - 1){
@@ -395,9 +428,10 @@ void UpdateSprites(void){
   if(bombActive){
     bombs.y += bombs.vy;
     //despawn the bomb
-    if(bombs.y > 160){ 
-      bombActive = 0; 
-      bombs.needDraw = 0; 
+    if(bombs.y > 160){
+      bombActive = 0;
+      bombs.needDraw = 0;
+      score++;
     }
   }
 
@@ -433,7 +467,6 @@ void TIMG12_IRQHandler(void){
     if(State == PLAY){
       UpdateMyPlayer();
       UpdateSprites();
-
       animFrame ^= 1;
       utc.image = animFrame ? ut_car2 : ut_car1;
       amc.image = animFrame ? am_car2 : am_car1;
@@ -460,21 +493,20 @@ int main(void){
   PLL_Init();
   LaunchPad_Init();
   EdgeTriggered_Init();
-  IOMUX->SECCFG.PINCM[43] = 0x00000000;  // PB18 slidepot
   ADCinit();
   UART1_Init();
   ST7735_InitPrintf(INITR_REDTAB);
   PB1Pressed = 0;
   PB4Pressed = 0;
 
-  // Assign cars based on board identity
-#ifdef PLAYER1
-  mycar    = &utc;
-  othercar = &amc;
-#else
-  mycar    = &amc;
-  othercar = &utc;
-#endif
+    // Assign cars based on board identity
+  #ifdef PLAYER1
+    mycar    = &utc;
+    othercar = &amc;
+  #else
+    mycar    = &amc;
+    othercar = &utc;
+  #endif
 
   __enable_irq();
 
@@ -487,6 +519,7 @@ int main(void){
     SendLoseFlag = 0;
     gameReady = 0;
     animFrame = 0;
+    score = 0;
 
     // start screen
     while(State == START){
@@ -528,9 +561,20 @@ int main(void){
         draw(&sqr);
         draw(&utc);
         draw(&amc);
-        if(bombActive){ 
+        
+        if(bombActive){
           draw(&bombs);
         }
+        
+        ST7735_SetCursor(0, 0);
+        
+        if(Language == ENGLISH){
+          ST7735_OutString("Score:");
+        } else{
+          ST7735_OutString("Pts:  ");
+        }
+        
+        ST7735_OutUDec5(score);
       }
     }
 
