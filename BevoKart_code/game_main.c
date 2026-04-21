@@ -8,8 +8,7 @@
 // BevoKart - ECE319K
 // 2-player racing game with UART, obstacles, and difficulty selection
 
-// ---- Uncomment for UT board, comment out for A&M board ----
-#define PLAYER1
+// Board identity is selected at runtime via button press on startup
 
 #include <stdio.h>
 #include <stdint.h>
@@ -62,8 +61,6 @@ typedef struct sprite sprite_t;
 
 // Sprites
 sprite_t utc, amc, sqr, bombs;
-sprite_t *mycar;     // points to this board's car
-sprite_t *othercar;  // points to the other board's car
 
 // Game global vars
 uint32_t PB1Pressed, PB4Pressed;
@@ -93,57 +90,11 @@ uint32_t Random(uint32_t n){
 }
 
 //==================================================
-// UART1 driver 
-//PA8=TX, PA22=RX
-#define PA8INDEX  18
-#define PA22INDEX 47
+// Player 2 buttons — PB12 = left, PB17 = right
+#define PB12INDEX 28
+#define PB17INDEX 42
 
-void UART1_Init(void){
-  UART1->GPRCM.RSTCTL = 0xB1000003;
-  UART1->GPRCM.PWREN  = 0x26000001;
-  Clock_Delay(24);
-  IOMUX->SECCFG.PINCM[PA8INDEX]  = 0x00000082;  // PA8  = UART1 TX
-  IOMUX->SECCFG.PINCM[PA22INDEX] = 0x00040082;  // PA22 = UART1 RX
-  UART1->CLKSEL = 0x08;
-  UART1->CLKDIV = 0x00;
-  UART1->CTL0 &= ~0x01;
-  UART1->CTL0  = 0x00020018;
-  // 80MHz bus -> ULPCLK 40MHz -> /16 = 2.5MHz; 2.5MHz/115200 = 21.701 -> IBRD=21 FBRD=45
-  UART1->IBRD = 21;
-  UART1->FBRD = 45;
-  UART1->LCRH = 0x00000030;  // 8-bit, 1 stop, no parity
-  UART1->CPU_INT.IMASK = 0;
-  UART1->IFLS = 0x0422;
-  UART1->CTL0 |= 0x01;
-}
-
-char UART1_InChar(void){
-  while((UART1->STAT & 0x04) == 0x04){};  // wait while RX FIFO empty
-  return (char)(UART1->RXDATA);
-}
-
-void UART1_OutChar(char data){
-  while((UART1->STAT & 0x80) == 0x80){};  // wait while TX FIFO full
-  UART1->TXDATA = data;
-}
-
-// UART1_InChar waits on STAT & 0x04 (bit 2 = RXFE), so Available checks same bit
-#define UART_RXFE 0x04
-static uint8_t UART1_Available(void){
-  return !(UART1->STAT & UART_RXFE);
-}
-
-// Flag set by ISR when a lose condition occurs — main loop sends the packet
-volatile uint8_t SendLoseFlag = 0;
-// Sound IDs for PKT_SOUND; set by collision logic, cleared in main loop
-volatile uint8_t SendSoundFlag = 0;
-#define SOUND_ID_SQUIRREL 0x01
-#define SOUND_ID_BOMB     0x02
-
-// Packet types
-#define PKT_POS   0xFF   // position update: FF x y
-#define PKT_LOSE  0xFE   // sender lost the game: FE 00 00
-#define PKT_SOUND 0xFD   // sound event: FD soundId 00
+uint32_t PB12Pressed, PB17Pressed;
 
 //==================================================
 // Difficulty 
@@ -231,7 +182,9 @@ void graphics_init(void){
 // function to draw the sprites
 // >> allows for cleaner code 
 void draw(sprite_t *s){
-  if(!s->needDraw) return;
+  if(!s->needDraw){
+    return;
+  }
   ST7735_DrawBitmap(s->x, s->y, s->image, s->w, s->h);
   s->xold = s->x;
   s->yold = s->y;
@@ -248,7 +201,7 @@ void DrawStartScreen(Difficulty_t d){
   ST7735_DrawBitmap(0, 160, bgFrame ? track_2 : track_1, 128, 160);
 
   ST7735_SetCursor(6, 1);    // "BEVOKART" 8 chars -> col 6
-  ST7735_OutString("BEVOKART");
+  ST7735_OutString(" BEVOKART ");
 
   // Language row — PB4 toggles
   ST7735_SetCursor(4, 4);    // "Language:PB4" 12 chars -> col 4
@@ -264,18 +217,31 @@ void DrawStartScreen(Difficulty_t d){
 
   // Difficulty row — slide pot
   ST7735_SetCursor(5, 8);
-  if(Language == ENGLISH) ST7735_OutString("Difficulty:");  // 11 chars -> col 5
-  else                    ST7735_OutString("Dificultad:");  // 11 chars -> col 5
-
+  if(Language == ENGLISH) {
+    ST7735_OutString("Difficulty:");  // 11 chars -> col 5
+  } else{
+    ST7735_OutString("Dificultad:");  // 11 chars -> col 5
+  }
+  
   ST7735_SetCursor(7, 10);   // difficulty value ~7 chars -> col 7
+  
   if(Language == ENGLISH){
-    if(d == EASY)        ST7735_OutString("  EASY  ");
-    else if(d == MEDIUM) ST7735_OutString(" MEDIUM ");
-    else                 ST7735_OutString("  HARD  ");
+    if(d == EASY){
+      ST7735_OutString("  EASY  ");
+    } else if(d == MEDIUM) {
+      ST7735_OutString(" MEDIUM ");
+    } else{
+      ST7735_OutString("  HARD  ");
+    }
+    
   } else {
-    if(d == EASY)        ST7735_OutString("  FACIL  ");
-    else if(d == MEDIUM) ST7735_OutString("  MEDIO  ");
-    else                 ST7735_OutString(" DIFICIL ");
+    if(d == EASY){
+      ST7735_OutString("  FACIL  ");
+    } else if(d == MEDIUM){
+      ST7735_OutString("  MEDIO  ");
+    } else{
+      ST7735_OutString(" DIFICIL ");
+    }
   }
 
   // Start prompt
@@ -283,7 +249,8 @@ void DrawStartScreen(Difficulty_t d){
   if(Language == ENGLISH){ 
     ST7735_OutString(" left to start ");  // 12 chars -> col 4
   } else{
-    ST7735_OutString(" izquierda pa jugar ");  // 12 chars -> col 4
+    ST7735_SetCursor(2, 14);
+    ST7735_OutString("izquierda pa jugar");  // 12 chars -> col 4
   } 
 }
 
@@ -291,27 +258,27 @@ void DrawWinScreen(void){
   static uint8_t bgFrame = 0;
   bgFrame ^= 1;
   ST7735_DrawBitmap(0, 160, bgFrame ? track_2 : track_1, 128, 160);
-  ST7735_SetCursor(6, 5);
+  ST7735_SetCursor(5, 5);
+  
   if(Language == ENGLISH){
-    ST7735_OutString(" YOU WIN! ");
+    ST7735_OutString(" UT WINS! ");
   }else {
-    ST7735_OutString(" GANASTE! ");
+    ST7735_OutString(" UT GANA! ");
   }
   
   ST7735_SetCursor(4, 8);
-  
   if(Language == ENGLISH){
-    ST7735_OutString("Score: ");
+    ST7735_OutString("Score:");
   } else{
-    ST7735_OutString("Pts:   ");
+    ST7735_OutString("Pts:");
   }
   
-  ST7735_OutUDec5(score);
+  ST7735_OutUDec(score);
   ST7735_SetCursor(3, 12);
-  
   if(Language == ENGLISH){
     ST7735_OutString(" left to replay ");
   } else{
+    ST7735_SetCursor(2, 12);
     ST7735_OutString("izquierda rejugar");
   }
 }
@@ -320,81 +287,26 @@ void DrawLoseScreen(void){
   static uint8_t bgFrame = 0;
   bgFrame ^= 1;
   ST7735_DrawBitmap(0, 160, bgFrame ? track_2 : track_1, 128, 160);
-  ST7735_SetCursor(6, 5);
+  ST7735_SetCursor(4, 5);
   if(Language == ENGLISH){
-    ST7735_OutString(" YOU LOSE ");
+    ST7735_OutString(" A&M WINS! ");
   }else {
-    ST7735_OutString(" PERDISTE ");
+    ST7735_OutString(" A&M GANA! ");
   }
   
   ST7735_SetCursor(6, 8);
-  
-  if(Language == ENGLISH){
-    ST7735_OutString("Score: ");
-  } else{
-    ST7735_OutString("Pts:   ");
-  }
-  
-  ST7735_OutUDec5(score);
+  if(Language == ENGLISH) ST7735_OutString("Score:");
+  else                    ST7735_OutString("Pts:");
+  ST7735_OutUDec(score);
   ST7735_SetCursor(3, 12);
   if(Language == ENGLISH){
     ST7735_OutString(" left to replay ");
   }else {
+    ST7735_SetCursor(2, 12);
     ST7735_OutString("izquierda rejugar");
   }
 }
 
-//===================================================
-// UART code
-void UART_SendPos(int32_t x, int32_t y){
-  UART1_OutChar((char)PKT_POS);
-  UART1_OutChar((char)(x & 0xFF));
-  UART1_OutChar((char)(y & 0xFF));
-}
-
-void UART_SendLose(void){
-  UART1_OutChar((char)PKT_LOSE);
-  UART1_OutChar(0x00);
-  UART1_OutChar(0x00);
-}
-
-void UART_SendSound(uint8_t soundId){
-  UART1_OutChar((char)PKT_SOUND);
-  UART1_OutChar((char)soundId);
-  UART1_OutChar(0x00);
-}
-
-// Call from main loop (not ISR) — non-blocking
-void UART_Receive(void){
-  if(!UART1_Available()) return;
-  char sync = UART1_InChar();
-
-  if((uint8_t)sync == PKT_LOSE){
-    if(UART1_Available()) UART1_InChar();  // drain x
-    if(UART1_Available()) UART1_InChar();  // drain y
-    State = WIN;
-    return;
-  }
-
-  if((uint8_t)sync == PKT_SOUND){
-    uint8_t soundId = 0;
-    if(UART1_Available()) soundId = (uint8_t)UART1_InChar();
-    if(UART1_Available()) UART1_InChar();  // drain padding
-    if(soundId == SOUND_ID_SQUIRREL) Sound_SquirrelDeath();
-    else if(soundId == SOUND_ID_BOMB) Sound_Bomb();
-    return;
-  }
-
-  if((uint8_t)sync != PKT_POS) return;  // unknown byte, discard
-
-  if(!UART1_Available()) return;
-  char rx = UART1_InChar();
-  if(!UART1_Available()) return;
-  char ry = UART1_InChar();
-
-  othercar->x = (int32_t)(uint8_t)rx;
-  othercar->y = (int32_t)(uint8_t)ry;
-}
 
 // =================================================
 // Collision
@@ -403,22 +315,30 @@ int32_t collides(sprite_t *a, sprite_t *b){
   return (a->x < b->x + b->w) && (a->x + a->w  > b->x) && (a->y - a->h + 1 <= b->y)&&(a->y >= b->y - b->h + 1);
 }
 
-// Game logic 
+// Game logic
 void UpdateMyPlayer(void){
   if(PB1Pressed){
     PB1Pressed = 0;
-    mycar->x -= 5;
-    if(mycar->x < 20){
-      mycar->x = 20;
-    }
-      
+    amc.x -= 5;
+    if(amc.x < 20) amc.x = 20;
   }
   if(PB4Pressed){
     PB4Pressed = 0;
-    mycar->x += 5;
-    if(mycar->x > 90){
-      mycar->x = 90;
-    }
+    amc.x += 5;
+    if(amc.x > 90) amc.x = 90;
+  }
+}
+
+void UpdateOtherPlayer(void){
+  if(PB12Pressed){
+    PB12Pressed = 0;
+    utc.x -= 5;
+    if(utc.x < 20) utc.x = 20;
+  }
+  if(PB17Pressed){
+    PB17Pressed = 0;
+    utc.x += 5;
+    if(utc.x > 90) utc.x = 90;
   }
 }
 
@@ -463,24 +383,33 @@ void UpdateSprites(void){
     if(!bombActive) SpawnBomb();
   }
 
-  // Squirrel collision
-  if(collides(mycar, &sqr)){
+  // UT car collisions
+  if(collides(&utc, &sqr)){
     Sound_SquirrelDeath();
-    SendSoundFlag = SOUND_ID_SQUIRREL;
-    mycar->y += 5;
-    if(mycar->y > 160){ // pushed off the screen
-      SendLoseFlag = 1;
+    utc.y += 5;
+    if(utc.y > 160){
       State = LOSE;
       return;
     }
   }
-
-  // Bomb collision
-  if(bombActive && collides(mycar, &bombs)){
+  if(bombActive && collides(&utc, &bombs)){
     Sound_Bomb();
-    SendSoundFlag = SOUND_ID_BOMB;
-    SendLoseFlag = 1;
     State = LOSE;
+    return;
+  }
+
+  // A&M car collisions
+  if(collides(&amc, &sqr)){
+    Sound_SquirrelDeath();
+    amc.y += 5;
+    if(amc.y > 160){
+      State = WIN;
+      return;
+    }
+  }
+  if(bombActive && collides(&amc, &bombs)){
+    Sound_Bomb();
+    State = WIN;
   }
 }
 
@@ -491,6 +420,7 @@ void TIMG12_IRQHandler(void){
 
     if(State == PLAY){
       UpdateMyPlayer();
+      UpdateOtherPlayer();
       UpdateSprites();
       animFrame ^= 1;
       utc.image = animFrame ? ut_car2 : ut_car1;
@@ -506,9 +436,23 @@ void TIMG12_IRQHandler(void){
 
 void GROUP1_IRQHandler(void){
   uint32_t status = GPIOB->CPU_INT.RIS;
-  if(status & (1<<1)) PB1Pressed = 1;
-  if(status & (1<<4)) PB4Pressed = 1;
-  GPIOB->CPU_INT.ICLR = (1<<1)|(1<<4);
+  if(status & (1<<1)){  
+    PB1Pressed  = 1;
+  }
+  
+  if(status & (1<<4)){
+    PB4Pressed  = 1;
+  }
+  
+  if(status & (1<<12)){
+    PB12Pressed = 1;
+  }
+  
+  if(status & (1<<17)){
+    PB17Pressed = 1;
+  }
+  
+  GPIOB->CPU_INT.ICLR = (1<<1)|(1<<4)|(1<<12)|(1<<17);
 }
 
 // Main code
@@ -519,21 +463,12 @@ int main(void){
   LaunchPad_Init();
   EdgeTriggered_Init();
   ADCinit();
-  Sound_Init();
-  UART1_Init();
   ST7735_InitPrintf(INITR_REDTAB);
+  Sound_Init();
   PB1Pressed = 0;
   PB4Pressed = 0;
-
-    // Assign cars based on board identity
-  #ifdef PLAYER1
-    mycar    = &utc;
-    othercar = &amc;
-  #else
-    mycar    = &amc;
-    othercar = &utc;
-  #endif
-
+  PB12Pressed = 0;
+  PB17Pressed = 0;
   __enable_irq();
 
   while(1){  //main game loop
@@ -542,7 +477,8 @@ int main(void){
     State = START;
     PB1Pressed = 0;
     PB4Pressed = 0;
-    SendLoseFlag = 0;
+    PB12Pressed = 0;
+    PB17Pressed = 0;
     gameReady = 0;
     animFrame = 0;
     score = 0;
@@ -577,17 +513,6 @@ int main(void){
     while(State == PLAY){
       if(gameReady){
         gameReady = 0;
-        if(SendLoseFlag){
-          SendLoseFlag = 0;
-          UART_SendLose();
-        }
-        if(SendSoundFlag){
-          uint8_t sid = SendSoundFlag;
-          SendSoundFlag = 0;
-          UART_SendSound(sid);
-        }
-        UART_SendPos(mycar->x, mycar->y);
-        UART_Receive();
         ST7735_DrawBitmap(0, 160, animFrame ? track_2 : track_1, 128, 160);
         draw(&sqr);
         draw(&utc);
@@ -602,7 +527,7 @@ int main(void){
         if(Language == ENGLISH){
           ST7735_OutString("Score:");
         } else{
-          ST7735_OutString("Pts:  ");
+          ST7735_OutString("Pts:");
         }
         
         ST7735_OutUDec5(score);
@@ -611,11 +536,6 @@ int main(void){
 
     // end screen
     __disable_irq();
-    if(SendLoseFlag){ 
-      SendLoseFlag = 0; 
-      UART_SendLose(); 
-    }
-    
     PB1Pressed = 0;
     
     // wait for button to restart
