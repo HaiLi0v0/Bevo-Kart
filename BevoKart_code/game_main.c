@@ -70,7 +70,9 @@ int32_t  bombActive   = 0;
 uint32_t spawnTimer   = 0;
 uint32_t spawnInterval;   // ticks between bomb spawns
 int32_t  obstacleSpeed;   // pixels/tick for obstacles
-volatile uint32_t score = 0;
+volatile uint32_t utscore = 0;
+volatile uint32_t amscore = 0;
+
 
 // Clock
 void PLL_Init(void){
@@ -188,6 +190,10 @@ void draw(sprite_t *s){
   ST7735_DrawBitmap(s->x, s->y, s->image, s->w, s->h);
   s->xold = s->x;
   s->yold = s->y;
+  if (&s == &sqr) {
+    sqr.x = Random(70) + 20;
+  }
+  
 }
 
 //==================================================
@@ -262,18 +268,18 @@ void DrawWinScreen(void){
   
   if(Language == ENGLISH){
     ST7735_OutString(" UT WINS! ");
+    
   }else {
     ST7735_OutString(" UT GANA! ");
+
   }
   
-  ST7735_SetCursor(4, 8);
-  if(Language == ENGLISH){
-    ST7735_OutString("Score:");
-  } else{
-    ST7735_OutString("Pts:");
-  }
-  
-  ST7735_OutUDec(score);
+  ST7735_SetCursor(5, 8);
+  ST7735_OutString("UT:");
+  ST7735_OutUDec(utscore);
+  ST7735_SetCursor(5, 9);
+  ST7735_OutString("AM:");
+  ST7735_OutUDec(amscore);
   ST7735_SetCursor(3, 12);
   if(Language == ENGLISH){
     ST7735_OutString(" left to replay ");
@@ -293,11 +299,14 @@ void DrawLoseScreen(void){
   }else {
     ST7735_OutString(" A&M GANA! ");
   }
-  
-  ST7735_SetCursor(6, 8);
-  if(Language == ENGLISH) ST7735_OutString("Score:");
-  else                    ST7735_OutString("Pts:");
-  ST7735_OutUDec(score);
+  ST7735_SetCursor(3, 8);
+  if(Language == ENGLISH) ST7735_OutString("UT:");
+  else                    ST7735_OutString("UT:");
+  ST7735_OutUDec(utscore);
+  ST7735_SetCursor(3, 9);
+  if(Language == ENGLISH) ST7735_OutString("AM:");
+  else                    ST7735_OutString("AM:");
+  ST7735_OutUDec(amscore);
   ST7735_SetCursor(3, 12);
   if(Language == ENGLISH){
     ST7735_OutString(" left to replay ");
@@ -346,19 +355,21 @@ void UpdateSprites(void){
   // Move squirrel diagonally, bounce off track walls
   sqr.x += sqr.vx;
   sqr.y += sqr.vy;
+  
   if(sqr.x < 20){ 
     sqr.x = 20;
     sqr.vx = -sqr.vx; 
   }
   
-  if(sqr.x + sqr.w > 90){ 
-    sqr.x = 90 - sqr.w;
+  if(sqr.x + sqr.w > 100){ 
+    sqr.x = 100 - sqr.w;
     sqr.vx = -sqr.vx;
   }
   
   if(sqr.y > 160){
     sqr.y = sqr.h - 1; // wrap top
-    score++;
+    utscore++;
+    amscore++;
   }
   
   if(sqr.y < sqr.h - 1){
@@ -372,7 +383,8 @@ void UpdateSprites(void){
     if(bombs.y > 160){
       bombActive = 0;
       bombs.needDraw = 0;
-      score++;
+      utscore++;
+      amscore++;
     }
   }
 
@@ -380,7 +392,9 @@ void UpdateSprites(void){
   spawnTimer++;
   if(spawnTimer >= spawnInterval){
     spawnTimer = 0;
-    if(!bombActive) SpawnBomb();
+    if(!bombActive){
+     SpawnBomb(); 
+    } 
   }
 
   // UT car collisions
@@ -481,7 +495,8 @@ int main(void){
     PB17Pressed = 0;
     gameReady = 0;
     animFrame = 0;
-    score = 0;
+    utscore = 0;
+    amscore = 0;
 
     // start screen
     while(State == START){
@@ -489,6 +504,8 @@ int main(void){
       if(PB4Pressed){ 
         PB4Pressed = 0; 
         Language = (Language == ENGLISH) ? SPANISH : ENGLISH;
+        Clock_Delay1ms(30);
+        PB4Pressed = 0;
       }
       
       DrawStartScreen(d);
@@ -522,19 +539,23 @@ int main(void){
           draw(&bombs);
         }
         
-        ST7735_SetCursor(0, 0);
-        
-        if(Language == ENGLISH){
-          ST7735_OutString("Score:");
-        } else{
-          ST7735_OutString("Pts:");
-        }
-        
-        ST7735_OutUDec5(score);
+        ST7735_SetCursor(1, 1);
+        ST7735_OutString("UT:");
+        ST7735_OutUDec(utscore);
+        ST7735_SetCursor(1, 2);
+        ST7735_OutString("AM:");
+        ST7735_OutUDec(amscore);
       }
+      Clock_Delay1ms(100);
     }
 
-    // end screen
+    // end screen — give winner one extra point
+    if(State == WIN){
+      utscore++;
+    }
+    if(State == LOSE){
+      amscore++;
+    }
     __disable_irq();
     PB1Pressed = 0;
     
