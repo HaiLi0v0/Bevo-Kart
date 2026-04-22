@@ -499,31 +499,37 @@ int main(void){
     amscore = 0;
 
     // start screen
-    while(State == START){
+    uint8_t startPressed = 0;
+    Difficulty_t chosenDiff = EASY;
+    while(!startPressed){
       Difficulty_t d = ReadDifficulty();
-      if(PB4Pressed){ 
-        PB4Pressed = 0; 
+      if(PB4Pressed){
+        PB4Pressed = 0;
         Language = (Language == ENGLISH) ? SPANISH : ENGLISH;
         Clock_Delay1ms(30);
         PB4Pressed = 0;
       }
-      
+
       DrawStartScreen(d);
-      
+
       if(PB1Pressed){
         PB1Pressed = 0;
-        Difficulty = d;
-        SetDifficulty(d);
-        State = PLAY;
+        chosenDiff = d;
+        startPressed = 1;
+        Clock_Delay1ms(30);
+        PB1Pressed = 0;
       }
       Clock_Delay1ms(100);  // ~10Hz animation on start screen
     }
 
     // ---- Init game ----
     __disable_irq();
+    Difficulty = chosenDiff;
+    SetDifficulty(chosenDiff);
     graphics_init();
     ST7735_FillScreen(ST7735_BLACK);
     TimerG12_IntArm(2666667, 2);  // 30Hz
+    State = PLAY;
     __enable_irq();
 
     // gameplay loop
